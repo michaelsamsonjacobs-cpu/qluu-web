@@ -590,6 +590,21 @@
         window.dispatchEvent(new Event('themeChanged'));
         animate();
     </script>
+
+<script>
+    // Prevent right-click and dragging on images to disable downloads
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
+
 
 </html>
