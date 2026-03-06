@@ -513,8 +513,8 @@
         const ugvD = tl.load('./assets/ugv_3d.png'); const droneD = tl.load('./assets/drone_1.png');
         const ugvL = tl.load('./assets/ugv_3d_exact_alpha.png'); const droneL = tl.load('./assets/drone_1_exact_alpha.png');
 
-        const droneMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? droneD : droneL, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending, depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628 });
-        const ugvMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? ugvD : ugvL, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending, depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628 });
+        const droneMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? droneD : droneL, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending, depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628 });
+        const ugvMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? ugvD : ugvL, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending, depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628 });
         const mats = [droneMat, ugvMat]; const dimmedMats = []; const shapes = [];
 
         window.addEventListener('themeChanged', () => {
@@ -532,15 +532,15 @@
             dimmedMats.forEach(dm => { dm.blending = bm; dm.color.setHex(mc); dm.map = dm._base.map; dm.needsUpdate = true; });
         });
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
             const m = mats[Math.floor(Math.random() * 2)]; const s = Math.random() * 2.5 + 1.5; const p = new THREE.Mesh(new THREE.PlaneGeometry(s, s), m); p.position.set((Math.random() - 0.5) * 60, (Math.random() - 0.5) * 45, Math.random() * 10 + 8); const r = (Math.random() - 0.5) * 0.8; // Biased upright
             p.rotation.set(0, 0, r); parallaxGroups[0].add(p); shapes.push({ mesh: p, layer: 0, speed: Math.random() * 0.6 + 0.9, rotationSpeed: (Math.random() - 0.5) * 0.05, isDrone: true, baseRotationZ: r });
         }
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 16; i++) {
             const m = mats[Math.floor(Math.random() * 2)]; const s = Math.random() * 3.5 + 2.0; const p = new THREE.Mesh(new THREE.PlaneGeometry(s, s), m); p.position.set((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 55, Math.random() * 15 - 5); const r = (Math.random() - 0.5) * 0.8; // Biased upright
             p.rotation.set(0, 0, r); parallaxGroups[1].add(p); shapes.push({ mesh: p, layer: 1, speed: Math.random() * 0.4 + 0.5, rotationSpeed: (Math.random() - 0.5) * 0.03, isDrone: true, baseRotationZ: r });
         }
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 23; i++) {
             const m = mats[Math.floor(Math.random() * 2)]; const s = Math.random() * 4.5 + 2.5; const dm = m.clone(); dm.opacity = 0.3; dm._base = m; dimmedMats.push(dm); const p = new THREE.Mesh(new THREE.PlaneGeometry(s, s), dm); p.position.set((Math.random() - 0.5) * 110, (Math.random() - 0.5) * 80, Math.random() * 20 - 30); const r = (Math.random() - 0.5) * 0.8; // Biased upright
             p.rotation.set(0, 0, r); parallaxGroups[2].add(p); shapes.push({ mesh: p, layer: 2, speed: Math.random() * 0.25 + 0.15, rotationSpeed: (Math.random() - 0.5) * 0.02, isDrone: true, baseRotationZ: r });
         }

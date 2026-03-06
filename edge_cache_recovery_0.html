@@ -540,13 +540,13 @@
 
         // Note: we start in light mode
 
-        const droneMat1 = new THREE.MeshBasicMaterial({ map: droneTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
+        const droneMat1 = new THREE.MeshBasicMaterial({ map: droneTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
 
-        const ugvMat = new THREE.MeshBasicMaterial({ map: ugvTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
+        const ugvMat = new THREE.MeshBasicMaterial({ map: ugvTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
 
-        const cyclopsMat = new THREE.MeshBasicMaterial({ map: cyclopsTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
+        const cyclopsMat = new THREE.MeshBasicMaterial({ map: cyclopsTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
 
-        const sentinelMat = new THREE.MeshBasicMaterial({ map: sentinelTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
+        const sentinelMat = new THREE.MeshBasicMaterial({ map: sentinelTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: THREE.NormalBlending, depthWrite: false, color: 0xffffff });
 
 
 
@@ -616,7 +616,7 @@
 
         // Layer 1 - Foreground (fastest parallax)
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -670,7 +670,7 @@
 
         // Layer 2 - Mid-ground
 
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 16; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -728,7 +728,7 @@
 
         // Layer 3 - Background (slowest parallax)
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 23; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -736,7 +736,7 @@
 
             const dimmedMat = material.clone();
 
-            dimmedMat.opacity = 0.3;
+            dimmedMat.opacity = 0.24;
 
             const geom = new THREE.PlaneGeometry(size, size);
 

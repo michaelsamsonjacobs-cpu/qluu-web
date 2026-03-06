@@ -801,7 +801,7 @@
 
             map: isDarkMode ? droneTexDark : droneTexLight,
 
-            transparent: true, opacity: 0.85, side: THREE.DoubleSide,
+            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
 
             blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
 
@@ -815,7 +815,7 @@
 
             map: isDarkMode ? ugvTexDark : ugvTexLight,
 
-            transparent: true, opacity: 0.85, side: THREE.DoubleSide,
+            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
 
             blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
 
@@ -918,7 +918,7 @@
 
         // Layer 1 - Foreground (fastest parallax)
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -972,7 +972,7 @@
 
         // Layer 2 - Mid-ground
 
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 16; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -1030,7 +1030,7 @@
 
         // Layer 3 - Background (slowest parallax)
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 23; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -1038,7 +1038,7 @@
 
             const dimmedMat = material.clone();
 
-            dimmedMat.opacity = 0.3;
+            dimmedMat.opacity = 0.24;
             dimmedMat._base = material;
             dimmedMaterials.push(dimmedMat);
 

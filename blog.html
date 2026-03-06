@@ -547,13 +547,13 @@
         const initDroneTex = isDarkMode ? droneTexDark : droneTexLight;
         const initUgvTex = isDarkMode ? ugvTexDark : ugvTexLight;
 
-        const droneMat1 = new THREE.MeshBasicMaterial({ map: initDroneTex, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
+        const droneMat1 = new THREE.MeshBasicMaterial({ map: initDroneTex, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
 
-        const ugvMat = new THREE.MeshBasicMaterial({ map: initUgvTex, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
+        const ugvMat = new THREE.MeshBasicMaterial({ map: initUgvTex, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
 
-        const cyclopsMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? droneTexDark : cyclopsTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
+        const cyclopsMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? droneTexDark : cyclopsTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
 
-        const sentinelMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? ugvTexDark : sentinelTexLight, transparent: true, opacity: 0.85, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
+        const sentinelMat = new THREE.MeshBasicMaterial({ map: isDarkMode ? ugvTexDark : sentinelTexLight, transparent: true, opacity: 0.68, side: THREE.DoubleSide, blending: initBlend, depthWrite: false, color: initColor });
 
 
 
@@ -638,7 +638,7 @@
 
         // Layer 1 - Foreground (fastest parallax)
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -692,7 +692,7 @@
 
         // Layer 2 - Mid-ground
 
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 16; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -750,7 +750,7 @@
 
         // Layer 3 - Background (slowest parallax)
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 23; i++) {
 
             const material = materials[Math.floor(Math.random() * materials.length)];
 
@@ -758,7 +758,7 @@
 
             const dimmedMat = material.clone();
 
-            dimmedMat.opacity = 0.3;
+            dimmedMat.opacity = 0.24;
             dimmedMat._baseMat = material; // track which base material this was cloned from
             dimmedMaterials.push(dimmedMat);
 
