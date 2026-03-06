@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QLUU | Contact Us</title>
+
+    <link rel="icon" type="image/png" href="./assets/favicon_q.png">
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:title" content="QLUU | Contact Us">
+
+    <meta property="og:description"
+
+        content="Get in touch with the QLUU team. Request a demo, vulnerability assessment, or custom hardware consultation.">
+
+    <meta property="og:image" content="./assets/og_image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="description" content="Contact QLUU for demos, vulnerability assessments, and defense solutions.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+
+        rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            darkMode: 'class',
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        brand: {
+
+                            navy: '#030914',
+
+                            cyan: '#00AEEF',
+
+                            blue: '#3498DB',
+
+                            sepia: '#F7F1D5',
+
+                            lightBg: '#fafcfe'
+
+                        }
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Space Grotesk', 'sans-serif'],
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        h1,
+
+        h2,
+
+        h3,
+
+        blockquote,
+
+        .italic {
+
+            text-wrap: balance;
+
+        }
+
+
+
+        p {
+
+            text-wrap: pretty;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            background: #fafcfe;
+
+            color: #1a202c;
+
+            overflow-x: hidden;
+
+            transition: background-color 0.5s, color 0.5s;
+
+        }
+
+
+
+        /* Glassmorphism nav */
+
+        .glass-nav {
+
+            background: rgba(250, 252, 254, 0.7);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+
+            transition: background-color 0.5s;
+
+        }
+
+
+
+        html.dark .glass-nav {
+
+            background: rgba(3, 9, 20, 0.6);
+
+            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+
+        }
+
+
+
+        .text-glow {
+
+            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+
+        }
+
+
+
+        html.dark .text-glow {
+
+            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+
+        }
+
+
+
+        /* Form input styling */
+
+        .form-input {
+
+            background: rgba(255, 255, 255, 0.9);
+
+            border: 1px solid rgba(0, 174, 239, 0.3);
+
+            color: #1a202c;
+
+            transition: all 0.3s;
+
+        }
+
+
+
+        .form-input:focus {
+
+            border-color: #00AEEF;
+
+            box-shadow: 0 0 15px rgba(0, 174, 239, 0.2);
+
+            outline: none;
+
+        }
+
+
+
+        html.dark .form-input {
+
+            background: rgba(3, 9, 20, 0.8);
+
+            border: 1px solid rgba(0, 174, 239, 0.3);
+
+            color: #F7F1D5;
+
+        }
+
+
+
+        html.dark .form-input:focus {
+
+            border-color: #00AEEF;
+
+            box-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+
+        }
+
+
+
+        .form-input::placeholder {
+
+            color: rgba(26, 32, 44, 0.4);
+
+        }
+
+
+
+        html.dark .form-input::placeholder {
+
+            color: rgba(247, 241, 213, 0.4);
+
+        }
+
+
+
+        /* Glass card for the form */
+
+        .glass-form {
+
+            background: rgba(250, 252, 254, 0.6);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(0, 174, 239, 0.15);
+
+        }
+
+
+
+        html.dark .glass-form {
+
+            background: rgba(3, 9, 20, 0.5);
+
+            border: 1px solid rgba(0, 174, 239, 0.2);
+
+        }
+
+    </style>
+
+
+
+</head>
+
+
+
+<body class="bg-brand-lightBg text-gray-900 transition-colors dark:bg-brand-navy dark:text-white">
+
+
+
+    <!-- Navigation -->
+
+    <nav
+
+        class="fixed top-0 left-0 w-full z-50 glass-nav py-4 px-8 flex justify-between items-center transition-all duration-300">
+
+        <div class="flex items-center gap-3">
+
+            <a href="index.html">
+
+                <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 transition-all invert dark:invert-0">
+
+            </a>
+
+        </div>
+
+        <div
+
+            class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-widest uppercase transition-colors text-gray-700 dark:text-brand-navy dark:text-brand-sepia dark:opacity-80">
+
+            <a href="index.html" class="hover:text-gray-900 dark:text-white transition-colors">Critical Infra</a>
+
+            <a href="os.html" class="hover:text-gray-900 dark:text-white transition-colors">Operating System</a>
+
+            <a href="government.html" class="hover:text-gray-900 dark:text-white transition-colors">Government
+
+                Solutions</a>
+
+            <a href="drones.html" class="hover:text-gray-900 dark:text-white transition-colors">Drone Fleet</a>
+
+            <a href="blog.html" class="hover:text-gray-900 dark:text-white transition-colors">Blog</a>
+
+
+
+            <button id="theme-toggle"
+
+                class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
+
+                <span id="theme-icon">🌙</span>
+
+            </button>
+
+            <a href="contact.html"
+
+                class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-black transition-all">Contact
+
+                Us</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <div class="relative z-10">
+
+
+
+        <!-- Hero Section -->
+
+        <section class="min-h-screen flex items-center justify-center px-8 pt-20">
+
+            <div class="max-w-5xl w-full">
+
+                <div class="text-center mb-16">
+
+                    <h1
+
+                        class="text-6xl md:text-8xl font-bold leading-tight mb-6 text-gray-900 dark:text-white tracking-tight text-glow">
+
+                        Let's <span class="text-brand-cyan">Talk</span></h1>
+
+                    <p class="text-xl md:text-2xl max-w-2xl mx-auto text-brand-navy dark:text-brand-sepia font-medium">
+
+                        Whether you need a vulnerability assessment, a demo of QLUUos, or want to discuss
+
+                        bespoke hardware, our team is ready.</p>
+
+                </div>
+
+
+
+                <!-- Contact Info Row -->
+
+                <div class="flex flex-col md:flex-row gap-8 mb-12 justify-center">
+
+                    <div class="glass-form rounded-xl px-8 py-6 flex-1 max-w-xs">
+
+                        <p class="text-sm uppercase tracking-widest text-brand-cyan font-bold mb-2">Email</p>
+
+                        <a href="mailto:contact@qluulab.com"
+
+                            class="text-lg font-medium text-brand-blue hover:text-brand-cyan transition-colors">contact@qluulab.com</a>
+
+                    </div>
+
+                    <div class="glass-form rounded-xl px-8 py-6 flex-1 max-w-xs">
+
+                        <p class="text-sm uppercase tracking-widest text-brand-cyan font-bold mb-2">Location</p>
+
+                        <p class="text-lg font-medium text-gray-700 dark:text-brand-sepia">California, USA</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Form -->
+
+                <div class="glass-form rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-lg">
+
+                    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+
+                        class="space-y-6">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                            <div>
+
+                                <label
+
+                                    class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">First
+
+                                    Name</label>
+
+                                <input type="text" name="firstName" placeholder="First Name"
+
+                                    class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+
+                            </div>
+
+                            <div>
+
+                                <label
+
+                                    class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">Last
+
+                                    Name</label>
+
+                                <input type="text" name="lastName" placeholder="Last Name"
+
+                                    class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <label
+
+                                class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">Email
+
+                                <span class="text-brand-cyan">*</span></label>
+
+                            <input type="email" name="email" placeholder="your@email.com" required
+
+                                class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+
+                        </div>
+
+                        <div>
+
+                            <label
+
+                                class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">Organization</label>
+
+                            <input type="text" name="organization" placeholder="Company or Agency"
+
+                                class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+
+                        </div>
+
+                        <div>
+
+                            <label
+
+                                class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">I'm
+
+                                interested in...</label>
+
+                            <select name="interest"
+
+                                class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+
+                                <option value="">Select an option</option>
+
+                                <option value="vulnerability-assessment">Vulnerability Assessment (IaaS)</option>
+
+                                <option value="demo">QLUUos Software Demo</option>
+
+                                <option value="hardware">Custom Hardware / Drone Fleet</option>
+
+                                <option value="government">Government / DoW Solutions</option>
+
+                                <option value="other">Other</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            <label
+
+                                class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-600 dark:text-brand-sepia">Message</label>
+
+                            <textarea name="message" rows="5" placeholder="Tell us about your requirements..."
+
+                                class="form-input w-full px-5 py-3 rounded-lg text-base font-medium resize-none"></textarea>
+
+                        </div>
+
+                        <div class="pt-4">
+
+                            <button type="submit"
+
+                                class="w-full bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded-lg shadow-[0_0_20px_rgba(0,174,239,0.4)] text-lg">
+
+                                Send Message</button>
+
+                        </div>
+
+                    </form>
+
+
+
+                    <!-- Success message (hidden by default) -->
+
+                    <div id="success-message" class="hidden text-center py-12">
+
+                        <div class="text-6xl mb-4">✓</div>
+
+                        <h2 class="text-3xl font-bold text-brand-cyan mb-4">Message Sent</h2>
+
+                        <p class="text-xl text-brand-navy dark:text-brand-sepia">
+
+                            Our team will respond within 24 hours.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Footer -->
+
+        <footer
+
+            class="py-12 border-t border-brand-blue border-opacity-20 text-center relative z-20 bg-gray-100 dark:bg-brand-navy bg-opacity-80 dark:bg-opacity-80 transition-colors mt-20">
+
+            <img src="./assets/logo_wht.png" alt="QLUU" class="h-6 mx-auto mb-6 invert dark:invert-0">
+
+            <p class="opacity-60 text-sm tracking-widest font-medium text-gray-900 dark:text-white">&copy;
+
+                2026 QLUU Lab, Inc. California, USA. All rights reserved.</p>
+
+        </footer>
+
+    </div>
+
+
+
+    <script>
+
+        // Theme management
+
+        const themeToggle = document.getElementById('theme-toggle');
+
+        const themeIcon = document.getElementById('theme-icon');
+
+        let isDarkMode = localStorage.getItem('theme') === 'dark';
+
+
+
+        function applyTheme(dark) {
+
+            if (dark) {
+
+                document.documentElement.classList.add('dark');
+
+                themeIcon.textContent = '☀️';
+
+            } else {
+
+                document.documentElement.classList.remove('dark');
+
+                themeIcon.textContent = '🌙';
+
+            }
+
+        }
+
+
+
+        applyTheme(isDarkMode);
+
+
+
+        themeToggle.addEventListener('click', () => {
+
+            isDarkMode = !isDarkMode;
+
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+            applyTheme(isDarkMode);
+
+        });
+
+
+
+        // Form submission (client-side placeholder)
+
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+
+            e.preventDefault();
+
+            document.getElementById('contact-form').classList.add('hidden');
+
+            document.getElementById('success-message').classList.remove('hidden');
+
+        });
+
+
+
+        // GSAP Animations
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('h1', { opacity: 0, y: 50, duration: 1, delay: 0.2 });
+
+        gsap.from('h1 + p', { opacity: 0, y: 30, duration: 1, delay: 0.4 });
+
+        gsap.from('.glass-form', { opacity: 0, y: 30, duration: 0.8, stagger: 0.15, delay: 0.6 });
+
+        gsap.from('#contact-form', { opacity: 0, y: 40, duration: 1, delay: 0.8 });
+
+    </script>
+
+</body>
+
+
+
+</html>

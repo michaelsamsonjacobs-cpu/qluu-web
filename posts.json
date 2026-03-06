@@ -1,0 +1,50 @@
+[
+    {
+        "title": "DHS Expands Counter-Drone Authority for Critical Infrastructure",
+        "date": "Feb 28, 2026",
+        "tag": "Policy",
+        "summary": "The Department of Homeland Security has issued new directives expanding counter-UAS authorities for critical infrastructure operators, signaling a major shift in how facilities can defend against drone threats.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+        "url": "#"
+    },
+    {
+        "title": "Joint Interagency Task Force Announces Unified Drone Defense Framework",
+        "date": "Feb 25, 2026",
+        "tag": "Defense",
+        "summary": "A new multi-agency framework establishes standardized protocols for counter-UAS operations across federal, state, and local jurisdictions.",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop",
+        "url": "#"
+    },
+    {
+        "title": "One Big Beautiful Bill Allocates $2.4B for Autonomous Defense",
+        "date": "Feb 22, 2026",
+        "tag": "Funding",
+        "summary": "The latest defense appropriations bill includes significant funding for autonomous counter-drone systems, AI-powered threat detection, and rapid prototyping of unmanned platforms.",
+        "image": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&h=400&fit=crop",
+        "url": "#"
+    },
+    {
+        "title": "US Launches One-Way-Attack Drone Force in the Pacific Theater",
+        "date": "Feb 18, 2026",
+        "tag": "Military",
+        "summary": "The Department of War has deployed its first operational one-way-attack drone formation, marking a paradigm shift in autonomous weapons doctrine.",
+        "image": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&h=400&fit=crop",
+        "url": "#"
+    },
+    {
+        "title": "Why Legacy cUAS Systems Are Failing Against Modern Drone Swarms",
+        "date": "Feb 14, 2026",
+        "tag": "Analysis",
+        "summary": "An analysis of recent incidents reveals that static, signature-based defense systems are fundamentally incapable of adapting to the evolving autonomous threat landscape.",
+        "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop",
+        "url": "#"
+    },
+    {
+        "title": "NDAA Compliance: What Critical Infrastructure Operators Need to Know",
+        "date": "Feb 10, 2026",
+        "tag": "Compliance",
+        "summary": "New NDAA provisions are reshaping procurement requirements for counter-drone systems. Here is what CIOs and security directors need to understand about supply chain compliance.",
+        "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop",
+        "url": "#"
+    }
+]

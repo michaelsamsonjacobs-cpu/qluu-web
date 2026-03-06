@@ -1,0 +1,49 @@
+Operational Now (Built & Functional):
+System|Status|Details|
+Commander QLUU (V-JEPA AI)|Attachment.png  Live|Graph-JEPA world model that predicts threat movement 2–5 seconds ahead. Trained on PyTorch with CUDA acceleration.|
+War Planner Agent|Attachment.png  Live|LLM-based strategist that analyzes threat context, generates ranked Courses of Action (COAs) with risk levels, doctrine references, and predicted outcomes (pWin, estimated losses, execution time). Learns from After Action Reports.|
+OSINT Analyst|Attachment.png  Live|Autonomous feed harvesting from 20+ sources. Converts intelligence into 128-dim context vectors injected directly into the JEPA encoder via a neural Knowledge Base. Filters by AOR, category, geography, trust level.|
+Bayesian Threat Tracker|Attachment.png  Live|100-particle filter with weather-adjusted sensor noise. Classifies enemy control mode (Human/AI/Pre-programmed) from heading variance. 1.2-second detection-to-track.|
+Swarm Coordinator|Attachment.png  Live|Multi-drone collaborative intercept planning. 8 formation types. 500m mesh network with Kruskal's MST routing. Coordinated multi-vector convergence.|
+3D Simulation Engine|Attachment.png  Live|Photorealistic 3D World Tiles. Real-time entity rendering, weapon effects (laser, net gun, EMP), terrain-aware pathfinding.|
+Training Pipeline|Attachment.png  Live|Synthetic data generation → dataset loader → V-JEPA 2 training → AOR-specific models. ELO-based adaptive difficulty ensures continuous improvement.|
+C2 Platform (Full Stack)|Attachment.png  Live|React 18 + Fastify API + PostgreSQL/PostGIS + Redis + Prometheus/Grafana. Dockerized. Kubernetes manifests. |
+Fleet Assets Modeled|Attachment.png  Live|Mothership (EMP/ECM/Comms Relay), Cyclops Scout, Cyclops Interceptor (200 km/h, net capture), Cyclops Patrol (laser dazzler), Sentinel UGV (turret), Cyclops EMP (RF jam). 3D-printed hardware prototypes (CAD files: STEP/STL in repo).|
+
+Measurable outcomes:
+Metric|QLUUos Result|
+Intercept Accuracy|5-meter terminal impact precision (Cannonball Protocol). Our base coordinated defense AI started with a 3000m kill range; the Cannonball Protocol's lead-pursuit terminal guidance now achieves impact within 5m of each target.|
+Intercept Success Rate|92% across simulated engagements|
+Detection-to-Track|1.2 seconds (target: <2 sec)|
+Decision Latency|320 ms from threat assessment to COA recommendation|
+Track Confidence|87% Bayesian confidence (target: >85%)|
+Drone Autonomy Level|Level 4 full autonomous engagement with human-on-the-loop override|
+Threat Prediction|2–5 seconds of predictive threat movement (V-JEPA world model)|
+Weather Degradation|99% detect in clear → 95% rain → 80% fog → 60% storm|
+System Uptime|99.7%|
+API P95 Latency|<200ms|
+Fully Proprietary (Built from Scratch)
+Graph-JEPA Architecture is an  adaptation of Meta's V-JEPA 2 for tactical drone defense. Uses Graph Attention Network (GAT) layers instead of standard vision transformers to represent drone swarms as graphs. Includes a State Decoder for "Dream View" visualization (the AI shows you what it's imagining). This does not exist anywhere else.
+War Planner Agent is our COA generation engine with doctrine-aware reasoning, AAR learning loop, and V-JEPA integration. The advisor generates plans; the JEPA general war-games them in latent space.
+JEPA Knowledge Base creates a neural bridge from OSINT text intelligence → 128-dim context vectors → JEPA encoder injection. Grounds the world model in real-world intelligence. No other C-UAS system does this.
+Bayesian Particle Filter Tracker is a custom 100-particle filter with control-mode classification (distinguishes human-piloted vs AI vs pre-programmed threats from heading variance alone).
+Swarm Coordination Engine a multi-drone intercept planner with 8 formations, mesh networking, and collaborative converge-from-all-angles targeting.
+ELO Adaptive Difficulty a three-tier rating system (Session/Global/AOR) that ensures perpetual AI improvement. This system (borrowed from chess) ensures our AI gets harder the better it gets. Our adversary AI escalates tactics (swarm attacks, pincer movements) as our defender improves. This is a closed-loop self-improvement engine.
+Full C2 Stack we have a 109,000+ file OS. Qluu is not a wrapper around someone else's API.
+Open-Source Foundations (Industry Standard):
+PyTorch (model training), React (UI), Fastify (API), CesiumJS (3D tiles), PostgreSQL (database), Prometheus/Grafana (monitoring). These are tools. The intelligence built on top is ours.
+Qluu vs Anduril
+Dimension|Anduril Lattice OS|QLUUos|
+Valuation|$28B+|Pre-seed, you're buying at the ground floor|
+Architecture|Hardware-centric. Sells sensors + effectors (Anvil, Roadrunner, WISP) bundled with software. Lattice is the glue.|Software-first, hardware-agnostic. QLUUos runs on any drone fleet. We don't force customers to buy our hardware.|
+AI Approach|ML for classification and sensor fusion. No publicly documented world model or predictive architecture.|Qluu’s V-JEPA world model doesn't just classify threats, it predicts what happens next in latent space. Predictive vs. reactive.|
+Learning Loop|Static models deployed to edge. No documented self-improvement cycle.|Closed-loop improvement. Simulation → training data → retrain → harder adversary → smarter defense. Autonomous. Continuous.|
+OSINT Integration|No documented autonomous OSINT harvesting or intelligence grounding.|Autonomous OSINT analyst feeds real-time geopolitical intelligence directly into the world model's latent space. The AI reads the news and adapts.|
+Cost to Deploy|Multi-million $$ per installation (Sentry towers, WISP arrays, Anvil interceptors). $642M USMC contract for installation C-sUAS.|Software license. Deploy on existing drone fleets. Fraction of the cost.|
+Customer Lock-in|Proprietary hardware stack creates vendor lock-in.|Open integration. MAVLink/PX4/ArduPilot compatible. Works with what you already own.|
+Market Gap|Focused on DOD primes + nation-state clients. Not built for critical infrastructure protection (utilities, energy, water).|Dual-use from day one. Military + critical infrastructure. Israel branch is selling to water, gas, and electric utilities immediately.|
+Speed to Deploy|12+ month procurement/installation cycles for hardware.|Software deploys in hours. Dockerized, Kubernetes-ready.|
+Self-Improving|No|Yes, our ELO-based adversarial training loop, AAR learning, OSINT-grounded adaptation|
+
+
+
