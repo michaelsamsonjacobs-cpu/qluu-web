@@ -190,42 +190,16 @@
 
 
 
-        /* Q target graphic filters */
-
-        .q-target {
-
-            filter: hue-rotate(180deg) brightness(0.6);
-
-            transition: filter 0.5s, opacity 0.5s;
-
-        }
+        
 
 
-
-        /* In light mode hover, invert makes it black, brightness 0 makes it true black if inverted */
-
-        .q-target:hover {
-
-            filter: hue-rotate(180deg) brightness(0);
-
-        }
+        
 
 
-
-        html.dark .q-target {
-
-            filter: hue-rotate(180deg) brightness(0.8);
-
-        }
+        
 
 
-
-        html.dark .q-target:hover {
-
-            filter: hue-rotate(180deg) brightness(1.2);
-
-        }
-    </style>
+            </style>
 
 </head>
 
@@ -490,7 +464,7 @@
                     </div>
                     <div class="flex-1 w-full max-w-md opacity-0 transform translate-y-12 gs-footer-img">
                         <img src="./assets/defense_learns.png" alt="Defense That Learns"
-                            class="w-full mix-blend-multiply dark:mix-blend-screen opacity-50 hover:opacity-100 transition-all duration-500 hover:scale-105 transform dark:invert-0 invert q-target rounded-full border border-brand-cyan border-opacity-20">
+                            class="w-full opacity-80 hover:opacity-100 transition-all duration-500 hover:scale-105 transform rounded-full border border-brand-cyan border-opacity-20 shadow-lg">
                     </div>
                 </div>
 
@@ -1337,19 +1311,19 @@
     </script>
 
 
-<script>
-    // Prevent right-click and dragging on images to disable downloads
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-        }
-    });
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-        }
-    });
-</script>
+    <script>
+        // Prevent right-click and dragging on images to disable downloads
+        document.addEventListener('contextmenu', function (e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', function (e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 
 
