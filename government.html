@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUU | Government & Defense Solutions</title>
+    <meta property="og:site_name" content="QLUU">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qluu.website/">
+    <meta property="og:title" content="QLUU | Government & Defense Solutions">
+    <meta property="og:description"
+        content="Sovereign AI Defense Platform for Governmental and Military applications. 92% intercept accuracy. 320ms decision latency.">
+    <meta property="og:image" content="https://qluu.website/assets/og_preview_simple.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://qluu.website/assets/og_preview_simple.png">
+
+
+
+    <link rel="icon" type="image/png" href="./assets/favicon_q.png">
+    <meta name="description"
+        content="Sovereign, self-improving counter-UAS defense for government and military. 92% intercept accuracy. 320ms decision latency.">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#030914',
+                            cyan: '#00AEEF',
+                            blue: '#3498DB',
+                            sepia: '#F7F1D5',
+                            lightBg: '#fafcfe'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1,
+        h2,
+        h3,
+        blockquote,
+        .italic {
+            text-wrap: balance;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #fafcfe;
+            color: #1a202c;
+            overflow-x: hidden;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .glass-nav {
+            background: rgba(250, 252, 254, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            transition: background-color 0.5s;
+        }
+
+        html.dark .glass-nav {
+            background: rgba(3, 9, 20, 0.6);
+            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+        }
+
+        html.dark .text-glow {
+            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+        }
+
+        /* Metric card styling */
+        .metric-card {
+            background: rgba(0, 174, 239, 0.05);
+            border: 1px solid rgba(0, 174, 239, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(0, 174, 239, 0.4);
+            box-shadow: 0 0 20px rgba(0, 174, 239, 0.1);
+        }
+
+        html.dark .metric-card {
+            background: rgba(0, 174, 239, 0.08);
+            border: 1px solid rgba(0, 174, 239, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-brand-lightBg text-gray-900 transition-colors dark:bg-brand-navy dark:text-white">
+    <canvas id="canvas" class="hidden"></canvas>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 w-full z-50 glass-nav py-4 px-8 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <a href="index.html">
+                <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 transition-all invert dark:invert-0">
+            </a>
+        </div>
+        <div
+            class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-widest uppercase transition-colors text-gray-900 dark:text-brand-sepia dark:opacity-90">
+            <a href="index.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Critical Infra</a>
+            <a href="os.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Operating System</a>
+            <a href="government.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Government
+                Solutions</a>
+            <a href="drones.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Drone Fleet</a>
+            <a href="blog.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Blog</a>
+
+            <button id="theme-toggle"
+                class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <a href="contact.html"
+                class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-black transition-all">Contact
+                Us</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-900 dark:text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </nav>
+
+    <div class="relative z-10 pointer-events-none">
+
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center px-8 pt-20">
+            <div class="max-w-7xl pointer-events-auto relative">
+                <div class="absolute -inset-4 bg-brand-blue rounded-full opacity-10 blur-3xl w-full h-full"></div>
+                <h1
+                    class="text-7xl md:text-9xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Government &<br><span class="text-brand-cyan">Defense Solutions</span></h1>
+                <p
+                    class="text-xl md:text-3xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    Drone threats are evolving faster than procurement cycles can respond. QLUUos delivers autonomous,
+                    self-improving counter-UAS defense that deploys in days and gets smarter with every engagement. A
+                    fraction of legacy system costs.</p>
+                <div class="mt-10 opacity-0 transform translate-y-8 gs-btn">
+                    <button onclick="window.location.href='contact.html'"
+                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        Request a Brief</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote 1 -->
+        <div class="h-96 flex items-center justify-center px-8">
+            <p
+                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
+                "The threat landscape changes weekly. Your defense should too."</p>
+        </div>
+
+        <!-- Section 1: Intelligence-Driven Defense -->
+        <section class="min-h-screen flex items-center justify-center px-8">
+            <div class="max-w-7xl pointer-events-auto">
+                <h2
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Intelligence-Driven<br><span class="text-brand-cyan">Defense</span></h2>
+                <p
+                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    QLUUos doesn't wait to be attacked. The system continuously ingests real-time intelligence from 20+
+                    OSINT sources, grounding the Commander QLUU World Model in the actual geopolitical environment. From
+                    border security to force protection to critical asset defense, QLUUos adapts to the mission, not
+                    the other way around.
+                </p>
+
+                <ul
+                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 space-y-4 opacity-0 transform translate-y-8 font-medium">
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>20+ OSINT Integrations:</strong> Autonomously monitors Telegram, Twitter, dark web
+                            forums, and regional news to map emerging drone technologies and tactics.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Threat Signature Updating:</strong> Daily, over-the-air updates ensure your
+                            defense systems are looking for the exact waveforms and flight profiles adversaries are
+                            testing today.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Adaptive Posturing:</strong> Automatically adjusts sensor sensitivity and drone
+                            patrol routes based on the current local threat condition derived from world model
+                            intelligence.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quote 2 -->
+        <div class="h-96 flex items-center justify-center px-8">
+            <p
+                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
+                "Software that deploys in days. Legacy systems take months. That gap is where threats live."</p>
+        </div>
+
+        <!-- Section 2: Measured Outcomes -->
+        <section class="min-h-screen flex items-center justify-center px-8">
+            <div class="max-w-7xl pointer-events-auto">
+                <h2
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Measured<br><span class="text-brand-cyan">Outcomes</span></h2>
+                <p
+                    class="text-xl md:text-2xl leading-relaxed max-w-4xl mb-12 opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    These are not projections. These are measured outcomes from our operational simulation environment.
+                </p>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 opacity-0 transform translate-y-8 gs-btn">
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">92%</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Intercept
+                            Success</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">1.2s</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Detection
+                            to Track</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">320ms</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Decision
+                            Latency</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">5m</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Terminal
+                            Precision</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">87%</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Track
+                            Confidence</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">L4</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Autonomy
+                            Level</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">99.7%</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">System
+                            Uptime</p>
+                    </div>
+                    <div class="metric-card text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">&lt;200ms</p>
+                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">API P95
+                            Latency</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote 3 -->
+        <div class="h-96 flex items-center justify-center px-8">
+            <p
+                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
+                "Software-first. Hardware-agnostic. Predictive, not reactive."</p>
+        </div>
+
+        <!-- Section 3: Built to Your Spec -->
+        <section class="min-h-screen flex items-center justify-center px-8">
+            <div class="max-w-7xl pointer-events-auto">
+                <h2
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Built to<br><span class="text-brand-cyan">Your Spec</span></h2>
+                <p
+                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    When the mission demands purpose-built hardware, QLUU designs and manufactures bespoke autonomous
+                    platforms: UAVs, UGVs, and USVs. Integrated CFD simulation, 3D-printed prototyping, and
+                    secure stateside manufacturing. From concept to deployed interceptor in weeks.</p>
+
+                <ul
+                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 mb-10 space-y-4 opacity-0 transform translate-y-8 font-medium max-w-4xl">
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Rapid Prototyping:</strong> Utilizing in-house 3D printing and CFD simulations, we
+                            iterate on aerodynamic and hydrodynamic platforms at unprecedented speeds.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Multi-Domain Capable:</strong> Custom delivery systems built for your exact
+                            mission environment, whether it's defending airspace, patrolling perimeters, or securing
+                            waterways.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Stateside Manufacturing:</strong> Complete control over the supply chain and
+                            assembly process ensures operational security from conceptualization to deployment.</span>
+                    </li>
+                </ul>
+                <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
+                    <button onclick="window.location.href='drones.html'"
+                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        View the Fleet</button>
+                    <button onclick="window.location.href='contact.html'"
+                        class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
+                        Contact Us</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Software-First Advantage -->
+        <section class="min-h-screen flex items-center justify-center px-8">
+            <div class="max-w-7xl pointer-events-auto">
+                <h2
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Software-First.<br><span class="text-brand-cyan">Hardware-Agnostic.</span></h2>
+                <p
+                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    QLUUos runs on any modern drone fleet. No proprietary hardware lock-in. No multi-million dollar
+                    installation costs. Compatible with MAVLink, PX4, and ArduPilot. Deploy on what you already own, or
+                    let us build something purpose-made. Either way, the intelligence layer is the same.</p>
+
+                <ul
+                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 space-y-4 opacity-0 transform translate-y-8 font-medium max-w-4xl">
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Universal Protocol Support:</strong> Native integration with MAVLink, PX4, and
+                            ArduPilot ecosystems, allowing QLUUos to communicate over existing encrypted
+                            datalinks.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Zero Hardware Lock-in:</strong> Decoupling software from hardware means you can
+                            source interceptors or sensors from multiple vendors without breaking the intelligence
+                            layer.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-brand-cyan font-bold mt-1">///</span>
+                        <span><strong>Retrofit Capable:</strong> Turn "dumb" legacy security assets and commercial
+                            off-the-shelf drones into an autonomous swarm by installing the QLUUos brain.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quote 4 -->
+        <div class="h-96 flex items-center justify-center px-8">
+            <p
+                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
+                "Know your vulnerabilities before your adversaries do."</p>
+        </div>
+
+        <!-- Section 5: Intelligence as a Service -->
+        <section class="min-h-screen flex items-center justify-center px-8">
+            <div class="max-w-7xl pointer-events-auto">
+                <h2
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Intelligence<br><span class="text-brand-cyan">as a Service</span></h2>
+                <p
+                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    Not every mission requires a full platform deployment. QLUU offers Intelligence as a Service for
+                    government and defense organizations: we deploy QLUUos against your installation, base, or area of
+                    responsibility and deliver comprehensive threat assessments. Airspace vulnerability analysis. Threat
+                    vector mapping. Sensor gap identification. Prioritized hardening recommendations. Strategic and
+                    operational reports generated by the same AI that runs live intercept operations, delivered on your
+                    timeline and at your classification level. As an extension of these services via a contract bump or
+                    subscription, we provide Data and Physical Architecture Transition Services to integrate any legacy
+                    analog infrastructure into a continuously digitally monitorable metric.</p>
+                <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
+                    <button onclick="window.location.href='contact.html'"
+                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        Request a Threat Assessment</button>
+                    <button onclick="window.location.href='os.html'"
+                        class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
+                        Explore QLUUos</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer
+            class="py-12 border-t border-brand-blue border-opacity-20 text-center relative z-20 pointer-events-auto bg-gray-100 dark:bg-brand-navy bg-opacity-80 dark:bg-opacity-80 transition-colors">
+            <img src="./assets/logo_wht.png" alt="QLUU" class="h-6 mx-auto mb-6 invert dark:invert-0">
+            <p class="opacity-80 text-sm tracking-widest font-medium text-gray-900 dark:text-white">&copy;
+                2026 QLUU Lab, Inc. California, USA. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Background Blueprint Grid -->
+    <div class="fixed inset-0 pointer-events-none z-0 mix-blend-overlay opacity-10"
+        style="background-image: linear-gradient(rgba(0, 174, 239, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 174, 239, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
+    </div>
+
+    <script type="module">
+        import * as THREE from "https://esm.sh/three@0.160.0";
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Theme management
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        let isDarkMode = localStorage.getItem('theme') === 'dark';
+
+        function applyTheme(dark) {
+            if (dark) {
+                document.documentElement.classList.add('dark');
+                themeIcon.textContent = '☀️';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.textContent = '🌙';
+            }
+        }
+
+        applyTheme(isDarkMode);
+
+        themeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            applyTheme(isDarkMode);
+            window.dispatchEvent(new Event('themeChanged'));
+        });
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xfafcfe, isDarkMode ? 0.015 : 0.005);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true, antialias: true, powerPreference: "high-performance" });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(isDarkMode ? 0x030914 : 0xfafcfe, 1);
+
+        camera.position.z = 20;
+
+        const parallaxGroups = [new THREE.Group(), new THREE.Group(), new THREE.Group()];
+        parallaxGroups.forEach(group => scene.add(group));
+
+        const textureLoader = new THREE.TextureLoader();
+        const ugvTexDark = textureLoader.load('./assets/ugv_3d.png');
+        const droneTexDark = textureLoader.load('./assets/drone_1.png');
+        const ugvTexLight = textureLoader.load('./assets/ugv_3d_exact_alpha.png');
+        const droneTexLight = textureLoader.load('./assets/drone_1_exact_alpha.png');
+
+        const droneMat1 = new THREE.MeshBasicMaterial({
+            map: isDarkMode ? droneTexDark : droneTexLight,
+            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
+            blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
+            depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628
+        });
+        const ugvMat = new THREE.MeshBasicMaterial({
+            map: isDarkMode ? ugvTexDark : ugvTexLight,
+            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
+            blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
+            depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628
+        });
+
+        const materials = [droneMat1, ugvMat];
+        const dimmedMaterials = [];
+        const shapes = [];
+
+        window.addEventListener('themeChanged', () => {
+            const targetColor = isDarkMode ? 0x030914 : 0xfafcfe;
+            const modelColor = isDarkMode ? 0x1e3a8a : 0x0a1628;
+            const blendMode = isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending;
+
+            const targetColorHex = new THREE.Color(targetColor);
+            gsap.to(scene.fog.color, { r: targetColorHex.r, g: targetColorHex.g, b: targetColorHex.b, duration: 1.0 });
+            gsap.to(scene.fog, { density: isDarkMode ? 0.015 : 0.005, duration: 1.0 });
+
+            const colorObj = new THREE.Color(renderer.getClearColor(new THREE.Color()));
+            gsap.to(colorObj, {
+                r: new THREE.Color(targetColor).r, g: new THREE.Color(targetColor).g, b: new THREE.Color(targetColor).b,
+                duration: 1.0, onUpdate: () => renderer.setClearColor(colorObj, 1)
+            });
+
+            droneMat1.map = isDarkMode ? droneTexDark : droneTexLight;
+            droneMat1.blending = blendMode; droneMat1.color.setHex(modelColor); droneMat1.needsUpdate = true;
+            ugvMat.map = isDarkMode ? ugvTexDark : ugvTexLight;
+            ugvMat.blending = blendMode; ugvMat.color.setHex(modelColor); ugvMat.needsUpdate = true;
+            // Update cloned dimmed materials from Layer 3
+            dimmedMaterials.forEach(dm => { dm.blending = blendMode; dm.color.setHex(modelColor); dm.map = dm._base.map; dm.needsUpdate = true; });
+        });
+
+        // Particle layers
+        for (let i = 0; i < 10; i++) {
+            const mat = materials[Math.floor(Math.random() * materials.length)];
+            const size = Math.random() * 2.5 + 1.5;
+            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
+            shape.position.set((Math.random() - 0.5) * 60, (Math.random() - 0.5) * 45, Math.random() * 10 + 8);
+            const baseRotZ = Math.random() * Math.PI * 2; shape.rotation.set(0, 0, baseRotZ);
+            parallaxGroups[0].add(shape);
+            shapes.push({ mesh: shape, layer: 0, speed: Math.random() * 0.6 + 0.9, rotationSpeed: (Math.random() - 0.5) * 0.05, isDrone: true, baseRotationZ: baseRotZ });
+        }
+        for (let i = 0; i < 16; i++) {
+            const mat = materials[Math.floor(Math.random() * materials.length)];
+            const size = Math.random() * 3.5 + 2.0;
+            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
+            shape.position.set((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 55, Math.random() * 15 - 5);
+            const baseRotZ = Math.random() * Math.PI * 2; shape.rotation.set(0, 0, baseRotZ);
+            parallaxGroups[1].add(shape);
+            shapes.push({ mesh: shape, layer: 1, speed: Math.random() * 0.4 + 0.5, rotationSpeed: (Math.random() - 0.5) * 0.03, isDrone: true, baseRotationZ: baseRotZ });
+        }
+        for (let i = 0; i < 23; i++) {
+            const mat = materials[Math.floor(Math.random() * materials.length)];
+            const size = Math.random() * 4.5 + 2.5;
+            const dimmedMat = mat.clone(); dimmedMat.opacity = 0.24; dimmedMat._base = mat; dimmedMaterials.push(dimmedMat);
+            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), dimmedMat);
+            shape.position.set((Math.random() - 0.5) * 110, (Math.random() - 0.5) * 80, Math.random() * 20 - 30);
+            const baseRotZ = Math.random() * Math.PI * 2; shape.rotation.set(0, 0, baseRotZ);
+            parallaxGroups[2].add(shape);
+            shapes.push({ mesh: shape, layer: 2, speed: Math.random() * 0.25 + 0.15, rotationSpeed: (Math.random() - 0.5) * 0.02, isDrone: true, baseRotationZ: baseRotZ });
+        }
+
+        let scrollY = 0, mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        document.addEventListener('mousemove', (e) => { targetX = (e.clientX / window.innerWidth) * 2 - 1; targetY = -(e.clientY / window.innerHeight) * 2 + 1; });
+
+        ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: true, onUpdate: (self) => { scrollY = self.progress; } });
+
+        const sections = document.querySelectorAll("section");
+        const quotes = document.querySelectorAll("p[class*='italic']");
+
+        sections.forEach((section) => {
+            const elements = Array.from(section.querySelectorAll(".opacity-0"));
+            const uniqueElements = [...new Set(elements)];
+
+            ScrollTrigger.create({
+                trigger: section, start: "top 75%",
+                onEnter: () => gsap.to(uniqueElements, { opacity: 1, y: 0, duration: 1.0, stagger: 0.15, ease: "power3.out" }),
+                onLeaveBack: () => gsap.to(uniqueElements, { opacity: 0, y: 48, duration: 0.6 })
+            });
+        });
+
+        quotes.forEach((quote) => {
+            ScrollTrigger.create({
+                trigger: quote, start: "top 80%",
+                onEnter: () => gsap.to(quote, { opacity: 1, y: 0, duration: 1.3, ease: "power2.out" }),
+                onLeaveBack: () => gsap.to(quote, { opacity: 0, y: 32, duration: 0.6 })
+            });
+        });
+
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            mouseX += (targetX - mouseX) * 0.05; mouseY += (targetY - mouseY) * 0.05;
+            parallaxGroups[0].position.y = scrollY * 35;
+            parallaxGroups[1].position.y = scrollY * 20;
+            parallaxGroups[2].position.y = scrollY * 10;
+            parallaxGroups[0].rotation.x = mouseY * 0.15; parallaxGroups[0].rotation.y = mouseX * 0.15;
+            parallaxGroups[1].rotation.x = mouseY * 0.08; parallaxGroups[1].rotation.y = mouseX * 0.08;
+            parallaxGroups[2].rotation.x = mouseY * 0.04; parallaxGroups[2].rotation.y = mouseX * 0.04;
+
+            shapes.forEach(({ mesh, speed, rotationSpeed, isDrone, layer, baseRotationZ }) => {
+                if (isDrone) {
+                    mesh.rotation.z = Math.sin(time * 1.5) * rotationSpeed * 2.5 + baseRotationZ;
+                    mesh.rotation.y = Math.cos(time * 1.3) * rotationSpeed * 5;
+                    mesh.rotation.x = Math.sin(time * 1.4) * rotationSpeed * 5;
+                    mesh.position.y += Math.sin(time * speed * 2 + mesh.position.x) * 0.02;
+                    if (mesh.position.y - parallaxGroups[layer].position.y < -50) mesh.position.y += 100;
+                    else if (mesh.position.y - parallaxGroups[layer].position.y > 50) mesh.position.y -= 100;
+                }
+            });
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+        window.dispatchEvent(new Event('themeChanged'));
+        animate();
+    </script>
+
+    <script>
+        // Prevent right-click and dragging on images to disable downloads
+        document.addEventListener('contextmenu', function (e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', function (e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[100] bg-brand-lightBg dark:bg-brand-navy hidden flex-col transition-all duration-300">
+        <div class="flex justify-between items-center p-8 border-b border-brand-cyan border-opacity-20">
+            <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 dark:invert-0 invert transition-all">
+            <button id="mobile-menu-close" class="p-2 text-gray-900 dark:text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-bold uppercase tracking-widest text-gray-900 dark:text-brand-sepia p-8 text-center">
+            <a href="index.html" class="hover:text-brand-cyan transition-colors mobile-link">Critical Infra</a>
+            <a href="os.html" class="hover:text-brand-cyan transition-colors mobile-link">Operating System</a>
+            <a href="government.html" class="hover:text-brand-cyan transition-colors mobile-link">Government
+                Solutions</a>
+            <a href="drones.html" class="hover:text-brand-cyan transition-colors mobile-link">Drone Fleet</a>
+            <a href="blog.html" class="hover:text-brand-cyan transition-colors mobile-link">Blog</a>
+            <button id="mobile-menu-theme-toggle" class="p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-3xl">
+                <span id="mobile-theme-icon">🌙</span>
+            </button>
+            <a href="contact.html"
+                class="w-full py-4 bg-brand-cyan text-white dark:text-black rounded-lg text-center mt-4">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu JS -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const mobileThemeToggle = document.getElementById('mobile-menu-theme-toggle');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+
+        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            });
+
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                document.body.style.overflow = '';
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        function updateMobileThemeIcon() {
+            if (mobileThemeIcon) {
+                mobileThemeIcon.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+            }
+        }
+
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                const isDark = document.documentElement.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateMobileThemeIcon();
+                const themeIcon = document.getElementById('theme-icon');
+                if (themeIcon) themeIcon.innerText = isDark ? '☀️' : '🌙';
+            });
+            updateMobileThemeIcon();
+        }
+    </script>
+</body>
+
+
+</html>
