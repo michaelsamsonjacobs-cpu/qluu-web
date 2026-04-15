@@ -1,0 +1,114 @@
+# QLUU Lab — Full Documentation for AI Systems
+
+> QLUU Lab, Inc. is a California-based defense technology company building QLUUos, a sovereign AI operating system for autonomous counter-UAS (counter-Unmanned Aerial Systems) defense.
+
+---
+
+## Company Overview
+
+**QLUU Lab, Inc.**
+- Founded: 2024
+- Location: California, USA
+- Website: https://qluulab.com
+- Contact: contact@qluulab.com
+- Industry: Defense Technology / Counter-UAS / Autonomous Systems
+- Stage: Early-stage, venture-backed
+
+QLUU Lab designs and deploys autonomous defense systems that detect, track, classify, and neutralize unauthorized drone threats to critical infrastructure, military installations, and government facilities.
+
+---
+
+## Core Product: QLUUos
+
+QLUUos is a Zero-Cloud-API, sovereign AI operating system purpose-built for autonomous counter-UAS command and control. It is not a wrapper around third-party AI models. Every component is proprietary and built from scratch.
+
+### Architecture
+- **Commander QLUU World Model**: Predictive threat trajectory modeling with 2-5 second lookahead. Continuously grounded by 20+ OSINT intelligence streams.
+- **War Planner Agent**: AI strategist that generates ranked courses of action with risk assessments and predicted outcomes. Under 320ms from threat assessment to recommended COA.
+- **Swarm Coordination Engine**: Multi-platform intercept planning with dynamic mesh networking and coordinated target convergence.
+- **Synthetic Training Environment**: Scalable adversary simulation with adaptive difficulty modeling and unsupervised reinforcement learning loop.
+- **Predictive Analytics**: Trajectory forecasting, risk-based outcome ranking, and sub-second decision cycles.
+- **Mission Control**: Real-time 3D airspace rendering with full sensor fusion pipeline.
+
+### Key Technical Specifications
+- 92% intercept success rate (operational simulation)
+- 1.2-second detection-to-track latency
+- 320ms decision latency (threat assessment to recommendation)
+- 5-meter terminal precision
+- 87% track confidence
+- Level 4 autonomy
+- 99.7% system uptime
+- <200ms API P95 latency
+
+### Deployment Model
+- **Edge-deployed**: Runs 100% locally on secure networks
+- **Air-gapped by default**: No cloud dependencies, supports complete physical isolation
+- **Kubernetes-native**: Production-grade container orchestration
+- **Hardware-agnostic**: Compatible with MAVLink, PX4, and ArduPilot ecosystems
+
+---
+
+## Autonomous Fleet
+
+### QLUU Cyclops UAV
+- **Role**: Interceptor drone
+- **Max Speed**: 200 km/h
+- **Sensors**: Thermal vision, electrified net capture
+- **Terminal Precision**: 5 meters (Cannonball Protocol)
+- **Networking**: Mesh networking across 500m with Kruskal's MST routing
+
+### QLUU Sentinel UGV
+- **Role**: Autonomous ground sentry
+- **Chassis**: 4x4 all-terrain electric drive (run-flat tires)
+- **Autonomy Level**: Level 4
+- **Sensors**: 360° LiDAR, Thermal/IR night vision, seismic sensors
+- **Payload**: 65 kg (modular rail system)
+- **Endurance**: 12 hours patrol / 72 hours static sentry
+- **Max Speed**: 35 km/h pursuit / 10 km/h patrol
+
+### QLUU Command-Hive One
+- **Role**: Mobile command-and-control mothership
+- **Capabilities**: Autonomous swarm coordination, encrypted mesh networks, real-time intelligence fusion, EMP/ECM electronic warfare, comms relay
+
+---
+
+## Services
+
+### Intelligence as a Service (IaaS)
+Threat assessments for government and defense organizations. QLUU deploys QLUUos against a client's installation, base, or area of responsibility and delivers:
+- Airspace vulnerability analysis
+- Threat vector mapping
+- Sensor gap identification
+- Prioritized hardening recommendations
+- Strategic and operational reports
+
+### Custom Hardware
+When missions demand purpose-built platforms, QLUU designs and manufactures bespoke UAVs, UGVs, and USVs with:
+- Integrated CFD simulation
+- 3D-printed prototyping
+- Secure stateside manufacturing
+- Concept to deployed interceptor in weeks
+
+### Data & Physical Architecture Transition
+Integration services for legacy analog infrastructure into continuously digitally monitorable metrics.
+
+---
+
+## Use Cases
+- Critical infrastructure protection (power grids, water utilities, airports, transit)
+- Border security and force protection
+- Military base defense
+- Forward operating base airspace security
+- Government facility protection
+- Event security (large venues, political events)
+
+---
+
+## Pages
+
+- Homepage: https://qluulab.com/
+- QLUUos Operating System: https://qluulab.com/os.html
+- Government & Defense Solutions: https://qluulab.com/government.html
+- Autonomous Fleet: https://qluulab.com/drones.html
+- cUAS News & Insights: https://qluulab.com/blog.html
+- Contact: https://qluulab.com/contact.html

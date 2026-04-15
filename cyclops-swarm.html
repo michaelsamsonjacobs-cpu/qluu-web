@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUU Cyclops Swarm — 3D Particle Cloud</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #060910;
+            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #fff;
+        }
+        canvas { display: block; }
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            z-index: 20;
+            text-align: center;
+        }
+        #hint {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.25);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 10;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">GENERATING SWARM MATRIX<br><span style="font-size: 10px; opacity: 0.5;">Analyzing Cyclops Coordinates...</span></div>
+    <div id="hint">CLICK TO SCATTER · DRAG TO ORBIT</div>
+
+    <canvas id="imgCanvas" style="display: none;"></canvas>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://esm.sh/three@0.160.0",
+            "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // ── Three.js Scene Setup ──────────────────────────────────────
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x060910, 0.0008);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
+    camera.position.set(0, 50, 1000);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x060910);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.autoRotate = false;
+    controls.maxDistance = 2000;
+    controls.minDistance = 200;
+
+    let particles;
+    let material;
+    let transitionValue = 1.0;
+    let transitionTarget = 1.0;
+    const clock = new THREE.Clock();
+
+    // ── Mouse Interaction ─────────────────────────────────────────
+    const mouse = new THREE.Vector2(9999, 9999);
+    const raycaster = new THREE.Raycaster();
+    let clickForce = 0.0; // 0 = no click, decays back to 0
+    let clickWorldPos = new THREE.Vector3(0, 0, 0);
+
+    let hoverWorldPos = new THREE.Vector3(9999, 9999, 9999);
+    // Plane sits at z=80 to match the drone body's forward bulge from the sphere volume
+    const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -80);
+
+    // Track mouse for continuous hover repulsion
+    renderer.domElement.addEventListener('mousemove', (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        
+        // Project mouse onto world plane for hover push
+        raycaster.setFromCamera(mouse, camera);
+        const hit = new THREE.Vector3();
+        raycaster.ray.intersectPlane(interactionPlane, hit);
+        if (hit) hoverWorldPos.copy(hit);
+    });
+
+    renderer.domElement.addEventListener('mouseleave', () => {
+        hoverWorldPos.set(9999, 9999, 9999);
+    });
+
+    // Click to scatter!
+    renderer.domElement.addEventListener('click', (e) => {
+        raycaster.setFromCamera(mouse, camera);
+        const intersect = new THREE.Vector3();
+        raycaster.ray.intersectPlane(interactionPlane, intersect);
+        
+        if (intersect) {
+            clickWorldPos.copy(intersect);
+            clickForce = 1.0; // Full blast
+        }
+    });
+
+    // ── Image to Particle Map ─────────────────────────────────────
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'assets/cyclops_render.jpg';
+
+    img.onload = () => {
+        const scale = 1200 / img.width;
+        const w = Math.floor(img.width * scale);
+        const h = Math.floor(img.height * scale);
+
+        const canvas = document.getElementById('imgCanvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const pixels = imgData.data;
+
+        const positions = [];
+        const targetPositions = [];
+        const randomPositions = [];
+        const colors = [];
+
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const index = (y * w + x) * 4;
+                const r = pixels[index] / 255;
+                const g = pixels[index + 1] / 255;
+                const b = pixels[index + 2] / 255;
+                
+                const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+                const spacing = 1.0;
+                const px = (x - w / 2) * spacing;
+                const py = -(y - h / 2) * spacing;
+
+                // Crop the base/floor
+                if (py < -160 && luminance < 0.7) continue;
+                if (py < -260) continue;
+
+                // Uniform background culling — no special zones
+                if (luminance > 0.85 && Math.abs(r - g) < 0.1 && Math.abs(g - b) < 0.1) {
+                    if (Math.random() > 0.05) continue;
+                }
+
+                // 3D Volume: spherical bow from center
+                const nx = (x / w) - 0.5;
+                const ny = (y / h) - 0.5;
+                const distFromCenter = Math.sqrt(nx * nx + ny * ny);
+
+                let sphereVolume = Math.max(0, 1.0 - (distFromCenter * 3.2)) * 140;
+                let thickness = (Math.random() - 0.5) * 40;
+                let lumaBump = (luminance - 0.5) * 40;
+                let pz = sphereVolume + thickness + lumaBump;
+
+                targetPositions.push(px, py, pz);
+
+                const rx = (Math.random() - 0.5) * 4000;
+                const ry = (Math.random() - 0.5) * 4000;
+                const rz = (Math.random() - 0.5) * 4000;
+                positions.push(rx, ry, rz);
+                randomPositions.push(rx, ry, rz);
+
+                colors.push(r, g, b);
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setAttribute('aTarget', new THREE.Float32BufferAttribute(targetPositions, 3));
+        geometry.setAttribute('aRandom', new THREE.Float32BufferAttribute(randomPositions, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const vertexShader = `
+            attribute vec3 aTarget;
+            attribute vec3 aRandom;
+            attribute vec3 color;
+            
+            uniform float uTime;
+            uniform float uTransition; 
+            uniform float uClickForce;
+            uniform vec3 uClickPos;
+            uniform vec3 uMousePos;
+            
+            varying vec3 vColor;
+            
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+            float snoise(vec3 v) {
+                const vec2 c = vec2(1.0/6.0, 1.0/3.0);
+                const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+                vec3 i  = floor(v + dot(v, c.yyy));
+                vec3 x0 = v - i + dot(i, c.xxx);
+                vec3 g = step(x0.yzx, x0.xyz);
+                vec3 l = 1.0 - g;
+                vec3 i1 = min(g.xyz, l.zxy);
+                vec3 i2 = max(g.xyz, l.zxy);
+                vec3 x1 = x0 - i1 + c.xxx;
+                vec3 x2 = x0 - i2 + c.yyy;
+                vec3 x3 = x0 - D.yyy;
+                i = mod289(i);
+                vec4 p = permute(permute(permute(
+                            i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                          + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                          + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+                float n_ = 0.142857142857;
+                vec3  ns = n_ * D.wyz - D.xzx;
+                vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                vec4 x_ = floor(j * ns.z);
+                vec4 y_ = floor(j - 7.0 * x_);
+                vec4 x = x_ * ns.x + ns.yyyy;
+                vec4 y = y_ * ns.x + ns.yyyy;
+                vec4 h = 1.0 - abs(x) - abs(y);
+                vec4 b0 = vec4(x.xy, y.xy);
+                vec4 b1 = vec4(x.zw, y.zw);
+                vec4 s0 = floor(b0)*2.0 + 1.0;
+                vec4 s1 = floor(b1)*2.0 + 1.0;
+                vec4 sh = -step(h, vec4(0.0));
+                vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+                vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+                vec3 p0 = vec3(a0.xy, h.x);
+                vec3 p1 = vec3(a0.zw, h.y);
+                vec3 p2 = vec3(a1.xy, h.z);
+                vec3 p3 = vec3(a1.zw, h.w);
+                vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+                p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+                vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+                m = m * m;
+                return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+            }
+
+            void main() {
+                vColor = color;
+                vec3 target = aTarget;
+                
+                // Interpolate between assembled and random scatter
+                vec3 basePos = mix(target, aRandom, uTransition);
+
+                // Dynamic ambient swarm drift with multi-octave noise
+                float noiseSpeed = 0.6 + (uTransition * 2.0); 
+                float n1 = snoise(vec3(target.x * 0.012, target.y * 0.012, uTime * noiseSpeed));
+                float n2 = snoise(vec3(target.y * 0.018, target.z * 0.018, uTime * noiseSpeed * 1.3));
+                float n3 = snoise(vec3(target.z * 0.012, target.x * 0.012, uTime * noiseSpeed * 0.8));
+                // Second octave for finer detail
+                float n4 = snoise(vec3(target.x * 0.05, target.y * 0.05, uTime * 1.5)) * 0.3;
+                float n5 = snoise(vec3(target.y * 0.05, target.z * 0.05, uTime * 1.5)) * 0.3;
+                
+                vec3 drift = vec3(n1 + n4, n2 + n5, n3) * 4.0;
+                vec3 finalPos = basePos + drift * (1.0 + uTransition * 40.0);
+
+                // --- MOUSE HOVER REPULSION (continuous, subtle) ---
+                vec3 awayFromMouse = finalPos - uMousePos;
+                float distToMouse = length(awayFromMouse);
+                float hoverRadius = 40.0;
+                float hoverPush = max(0.0, 1.0 - (distToMouse / hoverRadius));
+                hoverPush = hoverPush * hoverPush * hoverPush; // Cubic falloff = tight core
+                vec3 hoverDir = normalize(awayFromMouse + vec3(0.001));
+                finalPos += hoverDir * hoverPush * 40.0 * (1.0 - uTransition);
+
+                // --- CLICK BLAST (short, punchy) ---
+                if (uClickForce > 0.01) {
+                    vec3 awayFromClick = finalPos - uClickPos;
+                    float distToClick = length(awayFromClick);
+                    float clickRadius = 80.0;
+                    float repulse = max(0.0, 1.0 - (distToClick / clickRadius));
+                    repulse = repulse * repulse;
+                    vec3 pushDir = normalize(awayFromClick + vec3(0.001));
+                    finalPos += pushDir * repulse * uClickForce * 200.0;
+                }
+
+                vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
+                
+                float pSize = 1.0; 
+                gl_PointSize = pSize * (1000.0 / -mvPosition.z);
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `;
+
+        const fragmentShader = `
+            varying vec3 vColor;
+            void main() {
+                float dist = length(gl_PointCoord - vec2(0.5));
+                if (dist > 0.5) discard;
+                gl_FragColor = vec4(vColor, 1.0);
+            }
+        `;
+
+        material = new THREE.ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending,
+            uniforms: {
+                uTime: { value: 0 },
+                uTransition: { value: 1.0 },
+                uClickForce: { value: 0.0 },
+                uClickPos: { value: new THREE.Vector3(0, 0, 0) },
+                uMousePos: { value: new THREE.Vector3(9999, 9999, 9999) }
+            }
+        });
+
+        particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        document.getElementById('loading').style.display = 'none';
+
+        // Auto-assemble after a beat
+        setTimeout(() => {
+            transitionTarget = 0.0;
+        }, 800);
+        
+        // Fade hint after 5 seconds
+        setTimeout(() => {
+            document.getElementById('hint').style.opacity = '0';
+        }, 6000);
+    };
+
+    // ── Render Loop ───────────────────────────────────────────────
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        if (material) {
+            material.uniforms.uTime.value = clock.getElapsedTime();
+            
+            // Smooth transition lerp
+            const diff = transitionTarget - transitionValue;
+            transitionValue += diff * 0.03;
+            material.uniforms.uTransition.value = transitionValue;
+
+            // Click force decays smoothly back to zero (particles reform)
+            clickForce *= 0.94;
+            material.uniforms.uClickForce.value = clickForce;
+            material.uniforms.uClickPos.value.copy(clickWorldPos);
+            material.uniforms.uMousePos.value.copy(hoverWorldPos);
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    </script>
+</body>
+</html>

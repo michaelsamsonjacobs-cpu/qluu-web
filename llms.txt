@@ -1,0 +1,37 @@
+# QLUU Lab
+
+> Sovereign AI platform for autonomous counter-UAS defense of critical infrastructure. Founded in California, USA.
+
+QLUU Lab builds QLUUos, an edge-deployed, air-gapped AI operating system that detects, tracks, classifies, and neutralizes unauthorized drone threats in real time. The platform is hardware-agnostic, self-improving, and requires zero cloud connectivity.
+
+## Core Product: QLUUos
+
+- [QLUUos Operating System](https://qluulab.com/os.html): Zero-cloud-API sovereign AI OS for autonomous counter-UAS command and control
+- [Critical Infrastructure Defense](https://qluulab.com/): Protecting power grids, water utilities, airports, and transit from drone threats
+- [Government & Defense Solutions](https://qluulab.com/government.html): B2G defense platform for military, homeland security, and border protection
+- [Autonomous Drone Fleet](https://qluulab.com/drones.html): Custom-built UAV, UGV, and USV interceptor platforms
+
+## Key Capabilities
+
+- Commander QLUU World Model: Predictive threat trajectory modeling with 2-5 second lookahead
+- War Planner Agent: 320ms threat-assessment-to-decision autonomous response generation
+- 92% intercept success rate in operational simulation
+- 1.2-second detection-to-track latency
+- Air-gapped by default, edge-deployed, Kubernetes-native architecture
+- MAVLink, PX4, and ArduPilot protocol compatible
+- 20+ OSINT intelligence stream integration for real-time threat grounding
+
+## Services
+
+- Intelligence as a Service: Airspace vulnerability assessments and threat vector mapping
+- Custom Hardware: Purpose-built autonomous interceptor platforms (UAV, UGV, USV)
+- Data & Physical Architecture Transition: Legacy analog-to-digital infrastructure modernization
+
+## Blog & News
+
+- [cUAS News & Insights](https://qluulab.com/blog.html): Counter-UAS news, defense policy updates, and threat analysis
+
+## Contact
+
+- [Contact QLUU Lab](https://qluulab.com/contact.html)
+- Website: https://qluulab.com

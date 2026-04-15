@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "QLUU Lab",
+  "name_for_model": "qluu_lab",
+  "description_for_human": "Sovereign AI platform for autonomous counter-UAS defense of critical infrastructure",
+  "description_for_model": "QLUU Lab builds QLUUos, an edge-deployed, air-gapped AI operating system for autonomous counter-drone defense. The platform detects, tracks, classifies, and neutralizes unauthorized drone threats in real time. QLUUos features a Commander World Model for predictive threat trajectory modeling, a War Planner Agent for sub-320ms autonomous course-of-action generation, and swarm coordination for multi-platform intercept operations. The company also designs custom autonomous platforms: Cyclops UAV interceptor, Sentinel UGV perimeter sentry, and Command-Hive One mobile mothership. Key specs: 92% intercept accuracy, 1.2s detection-to-track, Level 4 autonomy. Compatible with MAVLink, PX4, ArduPilot. California-based, US-owned.",
+  "auth": {
+    "type": "none"
+  },
+  "logo_url": "https://qluulab.com/assets/logo_wht.png",
+  "contact_email": "contact@qluulab.com",
+  "legal_info_url": "https://qluulab.com/contact.html"
+}
