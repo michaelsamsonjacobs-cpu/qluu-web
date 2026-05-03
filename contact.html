@@ -404,8 +404,16 @@
 
                 <div class="glass-form rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-lg">
 
-                    <form id="contact-form" action="https://formspree.io/f/xaqvqgkj" method="POST"
-                        class="space-y-6">
+                    <div data-fs-success class="hidden text-center py-12">
+                        <div class="text-6xl mb-4">✓</div>
+                        <h2 class="text-3xl font-bold text-brand-cyan mb-4">Message Sent</h2>
+                        <p class="text-xl text-brand-navy dark:text-brand-sepia">
+                            Our team will respond within 24 hours.</p>
+                    </div>
+
+                    <div data-fs-error class="hidden text-center py-4 text-red-500 font-bold uppercase tracking-widest"></div>
+
+                    <form id="contact-form" class="space-y-6">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -416,7 +424,7 @@
 
                                     Name</label>
 
-                                <input type="text" name="firstName" placeholder="First Name"
+                                <input type="text" name="firstName" placeholder="First Name" data-fs-field
                                     class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
 
                             </div>
@@ -428,7 +436,7 @@
 
                                     Name</label>
 
-                                <input type="text" name="lastName" placeholder="Last Name"
+                                <input type="text" name="lastName" placeholder="Last Name" data-fs-field
                                     class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
 
                             </div>
@@ -442,8 +450,9 @@
 
                                 <span class="text-brand-cyan">*</span></label>
 
-                            <input type="email" name="email" placeholder="your@email.com" required
+                            <input type="email" name="email" placeholder="your@email.com" required data-fs-field
                                 class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
+                            <span data-fs-error="email" class="text-red-400 text-sm mt-1 block"></span>
 
                         </div>
 
@@ -452,7 +461,7 @@
                             <label
                                 class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-800 dark:text-brand-sepia">Organization</label>
 
-                            <input type="text" name="organization" placeholder="Company or Agency"
+                            <input type="text" name="organization" placeholder="Company or Agency" data-fs-field
                                 class="form-input w-full px-5 py-3 rounded-lg text-base font-medium">
 
                         </div>
@@ -483,14 +492,14 @@
                             <label
                                 class="block text-sm font-bold uppercase tracking-widest mb-2 text-gray-800 dark:text-brand-sepia">Message</label>
 
-                            <textarea name="message" rows="5" placeholder="Tell us about your requirements..."
+                            <textarea name="message" rows="5" placeholder="Tell us about your requirements..." data-fs-field
                                 class="form-input w-full px-5 py-3 rounded-lg text-base font-medium resize-none"></textarea>
 
                         </div>
 
                         <div class="pt-4">
 
-                            <button type="submit"
+                            <button type="submit" data-fs-submit-btn
                                 class="w-full bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded-lg shadow-[0_0_20px_rgba(0,174,239,0.4)] text-lg">
 
                                 Send Message</button>
@@ -499,21 +508,11 @@
 
                     </form>
 
-
-
-                    <!-- Success message (hidden by default) -->
-
-                    <div id="success-message" class="hidden text-center py-12">
-
-                        <div class="text-6xl mb-4">✓</div>
-
-                        <h2 class="text-3xl font-bold text-brand-cyan mb-4">Message Sent</h2>
-
-                        <p class="text-xl text-brand-navy dark:text-brand-sepia">
-
-                            Our team will respond within 24 hours.</p>
-
-                    </div>
+                    <script>
+                        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+                        formspree('initForm', { formElement: '#contact-form', formId: 'xaqvqgkj' });
+                    </script>
+                    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
                 </div>
 
@@ -545,40 +544,7 @@
 
 
 
-    <script>
-
-        // Form submission (client-side placeholder)
-        const contactForm = document.getElementById('contact-form');
-        const successMessage = document.getElementById('success-message');
-
-        if (contactForm && successMessage) {
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                try {
-                    const response = await fetch(contactForm.action, {
-                        method: 'POST',
-                        body: new FormData(contactForm),
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
-                        contactForm.classList.add('hidden');
-                        successMessage.classList.remove('hidden');
-                    } else {
-                        submitBtn.textContent = 'Error — Try Again';
-                        submitBtn.disabled = false;
-                        setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
-                    }
-                } catch (err) {
-                    submitBtn.textContent = 'Error — Try Again';
-                    submitBtn.disabled = false;
-                    setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
-                }
-            });
-        }
+        // Formspree is handled by @formspree/ajax library via data-fs-* attributes
 
 
 
