@@ -404,7 +404,7 @@
 
                 <div class="glass-form rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-lg">
 
-                    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+                    <form id="contact-form" action="https://formspree.io/f/xaqvqgkj" method="POST"
                         class="space-y-6">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -552,10 +552,31 @@
         const successMessage = document.getElementById('success-message');
 
         if (contactForm && successMessage) {
-            contactForm.addEventListener('submit', (e) => {
+            contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                contactForm.classList.add('hidden');
-                successMessage.classList.remove('hidden');
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: new FormData(contactForm),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        contactForm.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+                    } else {
+                        submitBtn.textContent = 'Error — Try Again';
+                        submitBtn.disabled = false;
+                        setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
+                    }
+                } catch (err) {
+                    submitBtn.textContent = 'Error — Try Again';
+                    submitBtn.disabled = false;
+                    setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
+                }
             });
         }
 
