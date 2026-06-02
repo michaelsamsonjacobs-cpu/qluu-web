@@ -35,10 +35,10 @@
                     colors: {
                         brand: {
                             navy: '#030914',
-                            cyan: '#00AEEF',
-                            blue: '#3498DB',
+                            cyan: '#c03a2e',
+                            blue: '#c03a2e',
                             sepia: '#F7F1D5',
-                            lightBg: '#fafcfe'
+                            lightBg: '#e3ddd3'
                         }
                     },
                     fontFamily: {
@@ -69,7 +69,7 @@
 
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: #fafcfe;
+            background: #e3ddd3;
             color: #1a202c;
             overflow-x: hidden;
             transition: background-color 0.5s, color 0.5s;
@@ -93,21 +93,21 @@
             background: rgba(250, 252, 254, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
             transition: background-color 0.5s;
         }
 
         html.dark .glass-nav {
             background: rgba(3, 9, 20, 0.6);
-            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.1);
         }
 
         .text-glow {
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
         }
 
         html.dark .text-glow {
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.5);
         }
 
         .q-target {
@@ -123,22 +123,22 @@
 
         /* Architecture card styling */
         .arch-card {
-            background: rgba(0, 174, 239, 0.04);
-            border: 1px solid rgba(0, 174, 239, 0.12);
+            background: rgba(192, 58, 46, 0.04);
+            border: 1px solid rgba(192, 58, 46, 0.12);
             border-radius: 12px;
             padding: 2rem;
             transition: all 0.3s;
         }
 
         .arch-card:hover {
-            border-color: rgba(0, 174, 239, 0.4);
-            box-shadow: 0 0 30px rgba(0, 174, 239, 0.1);
+            border-color: rgba(192, 58, 46, 0.4);
+            box-shadow: 0 0 30px rgba(192, 58, 46, 0.1);
             transform: translateY(-4px);
         }
 
         html.dark .arch-card {
-            background: rgba(0, 174, 239, 0.06);
-            border-color: rgba(0, 174, 239, 0.18);
+            background: rgba(192, 58, 46, 0.06);
+            border-color: rgba(192, 58, 46, 0.18);
         }
     </style>
 </head>
@@ -195,7 +195,7 @@
                     after-action learning.</p>
                 <div class="mt-10 opacity-0 transform translate-y-8 gs-btn">
                     <button onclick="window.location.href='contact.html'"
-                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
                         See It In Action</button>
                 </div>
             </div>
@@ -454,7 +454,7 @@
                 </div>
                 <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
                     <button onclick="window.location.href='government.html'"
-                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
                         Government Solutions</button>
                     <button onclick="window.location.href='drones.html'"
                         class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
@@ -474,7 +474,7 @@
 
     <!-- Background Blueprint Grid -->
     <div class="fixed inset-0 pointer-events-none z-0 mix-blend-overlay opacity-10"
-        style="background-image: linear-gradient(rgba(0, 174, 239, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 174, 239, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
+        style="background-image: linear-gradient(rgba(192, 58, 46, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(192, 58, 46, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
     </div>
 
     <script type="module">
@@ -501,12 +501,12 @@
 
         // Scene
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xfafcfe, isDarkMode ? 0.015 : 0.005);
+        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xe3ddd3, isDarkMode ? 0.015 : 0.005);
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true, antialias: true, powerPreference: "high-performance" });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(isDarkMode ? 0x030914 : 0xfafcfe, 1);
+        renderer.setClearColor(isDarkMode ? 0x030914 : 0xe3ddd3, 1);
         camera.position.z = 20;
 
         const parallaxGroups = [new THREE.Group(), new THREE.Group(), new THREE.Group()];
@@ -521,7 +521,7 @@
         const mats = [droneMat, ugvMat]; const dimmedMats = []; const shapes = [];
 
         window.addEventListener('themeChanged', () => {
-            const bg = isDarkMode ? 0x030914 : 0xfafcfe;
+            const bg = isDarkMode ? 0x030914 : 0xe3ddd3;
             const mc = isDarkMode ? 0x1e3a8a : 0x0a1628;
             const bm = isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending;
             const tc = new THREE.Color(bg);

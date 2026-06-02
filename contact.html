@@ -55,13 +55,13 @@
 
                             navy: '#030914',
 
-                            cyan: '#00AEEF',
+                            cyan: '#c03a2e',
 
-                            blue: '#3498DB',
+                            blue: '#c03a2e',
 
                             sepia: '#F7F1D5',
 
-                            lightBg: '#fafcfe'
+                            lightBg: '#e3ddd3'
 
                         }
 
@@ -122,7 +122,7 @@
 
             font-family: 'Space Grotesk', sans-serif;
 
-            background: #fafcfe;
+            background: #e3ddd3;
 
             color: #1a202c;
 
@@ -156,7 +156,7 @@
 
             -webkit-backdrop-filter: blur(12px);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
 
             transition: background-color 0.5s;
 
@@ -168,7 +168,7 @@
 
             background: rgba(3, 9, 20, 0.6);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.1);
 
         }
 
@@ -176,7 +176,7 @@
 
         .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
 
         }
 
@@ -184,7 +184,7 @@
 
         html.dark .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.5);
 
         }
 
@@ -196,7 +196,7 @@
 
             background: rgba(255, 255, 255, 0.9);
 
-            border: 1px solid rgba(0, 174, 239, 0.3);
+            border: 1px solid rgba(192, 58, 46, 0.3);
 
             color: #1a202c;
 
@@ -208,9 +208,9 @@
 
         .form-input:focus {
 
-            border-color: #00AEEF;
+            border-color: #c03a2e;
 
-            box-shadow: 0 0 15px rgba(0, 174, 239, 0.2);
+            box-shadow: 0 0 15px rgba(192, 58, 46, 0.2);
 
             outline: none;
 
@@ -222,7 +222,7 @@
 
             background: rgba(3, 9, 20, 0.8);
 
-            border: 1px solid rgba(0, 174, 239, 0.3);
+            border: 1px solid rgba(192, 58, 46, 0.3);
 
             color: #F7F1D5;
 
@@ -232,9 +232,9 @@
 
         html.dark .form-input:focus {
 
-            border-color: #00AEEF;
+            border-color: #c03a2e;
 
-            box-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+            box-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
 
         }
 
@@ -266,7 +266,7 @@
 
             -webkit-backdrop-filter: blur(20px);
 
-            border: 1px solid rgba(0, 174, 239, 0.15);
+            border: 1px solid rgba(192, 58, 46, 0.15);
 
         }
 
@@ -276,7 +276,7 @@
 
             background: rgba(3, 9, 20, 0.5);
 
-            border: 1px solid rgba(0, 174, 239, 0.2);
+            border: 1px solid rgba(192, 58, 46, 0.2);
 
         }
     </style>
@@ -477,7 +477,7 @@
                         <div class="pt-4">
 
                             <button type="submit" data-fs-submit-btn
-                                class="w-full bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded-lg shadow-[0_0_20px_rgba(0,174,239,0.4)] text-lg">
+                                class="w-full bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded-lg shadow-[0_0_20px_rgba(192, 58, 46,0.4)] text-lg">
 
                                 Send Message</button>
 
@@ -543,7 +543,7 @@
 
     <!-- Background Blueprint Grid overlay for technical vibe -->
     <div class="fixed inset-0 pointer-events-none z-0 mix-blend-overlay opacity-10"
-        style="background-image: linear-gradient(rgba(0, 174, 239, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 174, 239, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
+        style="background-image: linear-gradient(rgba(192, 58, 46, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(192, 58, 46, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
     </div>
 
     <!-- Background Blueprint Script -->
@@ -561,8 +561,8 @@
         const updateSceneTheme = () => {
             const isDark = document.documentElement.classList.contains('dark');
             if (scene && renderer) {
-                scene.fog.color.setHex(isDark ? 0x030914 : 0xfafcfe);
-                renderer.setClearColor(isDark ? 0x030914 : 0xfafcfe, 1);
+                scene.fog.color.setHex(isDark ? 0x030914 : 0xe3ddd3);
+                renderer.setClearColor(isDark ? 0x030914 : 0xe3ddd3, 1);
             }
         };
 
@@ -575,7 +575,7 @@
 
         const scene = new THREE.Scene();
 
-        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xfafcfe, 0.015);
+        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xe3ddd3, 0.015);
 
 
 
@@ -587,7 +587,7 @@
 
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        renderer.setClearColor(isDarkMode ? 0x030914 : 0xfafcfe, 1);
+        renderer.setClearColor(isDarkMode ? 0x030914 : 0xe3ddd3, 1);
 
 
 
@@ -689,7 +689,7 @@
 
 
 
-            const bgColor = isDarkMode ? 0x030914 : 0xfafcfe;
+            const bgColor = isDarkMode ? 0x030914 : 0xe3ddd3;
 
             renderer.setClearColor(bgColor, 1);
 

@@ -55,13 +55,13 @@
 
                             navy: '#030914',
 
-                            cyan: '#00AEEF',
+                            cyan: '#c03a2e',
 
-                            blue: '#3498DB',
+                            blue: '#c03a2e',
 
                             sepia: '#F7F1D5',
 
-                            lightBg: '#fafcfe'
+                            lightBg: '#e3ddd3'
 
                         }
 
@@ -122,7 +122,7 @@
 
             font-family: 'Space Grotesk', sans-serif;
 
-            background: #fafcfe;
+            background: #e3ddd3;
 
             color: #1a202c;
 
@@ -166,7 +166,7 @@
 
             -webkit-backdrop-filter: blur(12px);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
 
             transition: background-color 0.5s;
 
@@ -182,7 +182,7 @@
 
         .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
 
         }
 
@@ -206,7 +206,7 @@
 
         html.dark .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.5);
 
         }
 
@@ -225,7 +225,7 @@
         html.dark .vehicle-img {
             mix-blend-mode: lighten;
             filter: brightness(0.85) saturate(1.2) hue-rotate(-10deg);
-            box-shadow: 0 0 40px rgba(0, 174, 239, 0.15);
+            box-shadow: 0 0 40px rgba(192, 58, 46, 0.15);
         }
 
         html.dark .vehicle-img:hover {
@@ -242,7 +242,7 @@
 
             -webkit-backdrop-filter: blur(12px);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
 
             transition: background-color 0.5s;
 
@@ -254,7 +254,7 @@
 
             background: rgba(3, 9, 20, 0.6);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.1);
 
         }
     </style>
@@ -345,7 +345,7 @@
                 </p>
                 <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
                     <button onclick="window.location.href='government.html'"
-                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">
+                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
                         Government Solutions</button>
                     <button onclick="window.location.href='index.html'"
                         class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
@@ -379,7 +379,7 @@
                 <div class="flex-1 w-full max-w-lg opacity-0 transform translate-y-12 gs-footer-img">
 
                     <img src="./assets/cyclops_uav_new.png" alt="QLUU Cyclops UAV"
-                        class="w-full vehicle-img shadow-[0_0_40px_rgba(0,174,239,0.2)]">
+                        class="w-full vehicle-img shadow-[0_0_40px_rgba(192, 58, 46,0.2)]">
 
                 </div>
 
@@ -431,7 +431,7 @@
                 <div class="flex-1 w-full max-w-lg opacity-0 transform translate-y-12 gs-footer-img">
 
                     <img src="./assets/sentinel_ugv_new.jpg" alt="QLUU Sentinel UGV"
-                        class="w-full vehicle-img shadow-[0_0_40px_rgba(0,174,239,0.2)]">
+                        class="w-full vehicle-img shadow-[0_0_40px_rgba(192, 58, 46,0.2)]">
 
                 </div>
 
@@ -582,7 +582,7 @@
                 <div class="flex-1 w-full max-w-lg opacity-0 transform translate-y-12 gs-footer-img">
 
                     <img src="./assets/command_hive_v2.jpg" alt="QLUU Command-Hive One"
-                        class="w-full vehicle-img shadow-[0_0_40px_rgba(0,174,239,0.2)]">
+                        class="w-full vehicle-img shadow-[0_0_40px_rgba(192, 58, 46,0.2)]">
 
                 </div>
 
@@ -638,7 +638,7 @@
     <!-- Background Blueprint Grid overlay for technical vibe -->
 
     <div class="fixed inset-0 pointer-events-none z-0 mix-blend-overlay opacity-10"
-        style="background-image: linear-gradient(rgba(0, 174, 239, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 174, 239, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
+        style="background-image: linear-gradient(rgba(192, 58, 46, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(192, 58, 46, 0.4) 1px, transparent 1px); background-size: 50px 50px;">
 
     </div>
 
@@ -712,7 +712,7 @@
 
         const scene = new THREE.Scene();
 
-        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xfafcfe, isDarkMode ? 0.015 : 0.005); // Start with light fog
+        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xe3ddd3, isDarkMode ? 0.015 : 0.005); // Start with light fog
 
 
 
@@ -724,7 +724,7 @@
 
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        renderer.setClearColor(isDarkMode ? 0x030914 : 0xfafcfe, 1); // Start with light bg
+        renderer.setClearColor(isDarkMode ? 0x030914 : 0xe3ddd3, 1); // Start with light bg
 
 
 
@@ -820,7 +820,7 @@
 
         window.addEventListener('themeChanged', () => {
 
-            const targetColor = isDarkMode ? 0x030914 : 0xfafcfe;
+            const targetColor = isDarkMode ? 0x030914 : 0xe3ddd3;
 
             const modelColor = isDarkMode ? 0x1e3a8a : 0x0a1628;
 

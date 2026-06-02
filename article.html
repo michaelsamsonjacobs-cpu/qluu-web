@@ -72,13 +72,13 @@
 
                             navy: '#030914',
 
-                            cyan: '#00AEEF',
+                            cyan: '#c03a2e',
 
-                            blue: '#3498DB',
+                            blue: '#c03a2e',
 
                             sepia: '#F7F1D5',
 
-                            lightBg: '#fafcfe'
+                            lightBg: '#e3ddd3'
 
                         }
 
@@ -115,7 +115,7 @@
 
             font-family: 'Space Grotesk', sans-serif;
 
-            background: #fafcfe;
+            background: #e3ddd3;
 
             color: #1a202c;
 
@@ -167,7 +167,7 @@
 
             -webkit-backdrop-filter: blur(12px);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
 
             transition: background-color 0.5s;
 
@@ -179,7 +179,7 @@
 
             background: rgba(3, 9, 20, 0.6);
 
-            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.1);
 
         }
 
@@ -189,7 +189,7 @@
 
         .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.3);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
 
         }
 
@@ -197,7 +197,7 @@
 
         html.dark .text-glow {
 
-            text-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.5);
 
         }
     </style>
@@ -456,7 +456,7 @@
 
         const scene = new THREE.Scene();
 
-        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xfafcfe, 0.015);
+        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xe3ddd3, 0.015);
 
 
 
@@ -468,7 +468,7 @@
 
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        renderer.setClearColor(isDarkMode ? 0x030914 : 0xfafcfe, 1);
+        renderer.setClearColor(isDarkMode ? 0x030914 : 0xe3ddd3, 1);
 
 
 
@@ -570,7 +570,7 @@
 
 
 
-            const bgColor = isDarkMode ? 0x030914 : 0xfafcfe;
+            const bgColor = isDarkMode ? 0x030914 : 0xe3ddd3;
 
             renderer.setClearColor(bgColor, 1);
 

@@ -178,10 +178,10 @@ function generatePostHTML(post) {
                     colors: {
                         brand: {
                             navy: '#030914',
-                            cyan: '#00AEEF',
-                            blue: '#3498DB',
+                            cyan: '#c03a2e',
+                            blue: '#c03a2e',
                             sepia: '#F7F1D5',
-                            lightBg: '#fafcfe'
+                            lightBg: '#e3ddd3'
                         }
                     },
                     fontFamily: {
@@ -195,7 +195,7 @@ function generatePostHTML(post) {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: #fafcfe;
+            background: #e3ddd3;
             color: #1a202c;
             transition: background-color 0.5s, color 0.5s;
         }
@@ -204,20 +204,20 @@ function generatePostHTML(post) {
             background: rgba(250, 252, 254, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 174, 239, 0.2);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
         }
         html.dark .glass-nav {
             background: rgba(3, 9, 20, 0.6);
-            border-bottom: 1px solid rgba(0, 174, 239, 0.1);
+            border-bottom: 1px solid rgba(192, 58, 46, 0.1);
         }
-        .text-glow { text-shadow: 0 0 20px rgba(0, 174, 239, 0.3); }
-        html.dark .text-glow { text-shadow: 0 0 20px rgba(0, 174, 239, 0.5); }
+        .text-glow { text-shadow: 0 0 20px rgba(192, 58, 46, 0.3); }
+        html.dark .text-glow { text-shadow: 0 0 20px rgba(192, 58, 46, 0.5); }
         .article-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
         .article-body h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
         .article-body p { margin-bottom: 1rem; line-height: 1.8; }
         .article-body ul, .article-body ol { margin-bottom: 1rem; padding-left: 1.5rem; }
         .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
-        .article-body a { color: #00AEEF; text-decoration: underline; }
+        .article-body a { color: #c03a2e; text-decoration: underline; }
         .article-body img { border-radius: 12px; margin: 1.5rem 0; max-width: 100%; }
     </style>
 </head>
@@ -271,7 +271,7 @@ function generatePostHTML(post) {
             <div class="mt-16 p-8 border border-brand-cyan border-opacity-20 rounded-xl text-center bg-brand-cyan bg-opacity-5">
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Protect Your Airspace</h3>
                 <p class="text-gray-800 dark:text-brand-sepia mb-6">Learn how QLUUos can defend your critical infrastructure from drone threats.</p>
-                <a href="../contact.html" class="inline-block bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(0,174,239,0.4)]">Request a Brief</a>
+                <a href="../contact.html" class="inline-block bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">Request a Brief</a>
             </div>
         </article>
 
