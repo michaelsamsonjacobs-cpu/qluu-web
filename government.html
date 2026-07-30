@@ -10,16 +10,14 @@
     <meta property="og:url" content="https://qluu.website/">
     <meta property="og:title" content="QLUU | Government & Defense Solutions">
     <meta property="og:description"
-        content="Sovereign AI Defense Platform for Governmental and Military applications. 92% intercept accuracy. 320ms decision latency.">
+        content="Contract-ready. Independently verified. Designed for the warfighter.">
     <meta property="og:image" content="https://qluu.website/assets/og_preview_simple.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://qluu.website/assets/og_preview_simple.png">
 
-
-
     <link rel="icon" type="image/png" href="./assets/favicon_q.png">
     <meta name="description"
-        content="Sovereign, self-improving counter-UAS defense for government and military. 92% intercept accuracy. 320ms decision latency.">
+        content="Contract-ready. Independently verified. Designed for the warfighter.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -123,6 +121,23 @@
             background: rgba(192, 58, 46, 0.08);
             border: 1px solid rgba(192, 58, 46, 0.2);
         }
+        
+        .footer-badge-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid rgba(192, 58, 46, 0.2);
+        }
+        
+        .footer-badge {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 
@@ -138,12 +153,12 @@
             </a>
         </div>
         <div
-            class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-widest uppercase transition-colors text-gray-900 dark:text-brand-sepia dark:opacity-90">
-            <a href="index.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Critical Infra</a>
-            <a href="os.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Operating System</a>
-            <a href="government.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Government
-                Solutions</a>
-            <a href="drones.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Drone Fleet</a>
+            class="hidden lg:flex items-center gap-6 text-xs lg:text-sm font-semibold tracking-widest uppercase transition-colors text-gray-900 dark:text-brand-sepia dark:opacity-90">
+            <a href="index.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Commander Qluu</a>
+            <a href="technology.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Technology</a>
+            <a href="government.html" class="hover:text-gray-900 dark:hover:text-white transition-colors text-brand-cyan">Government</a>
+            <a href="autonomy.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Autonomy Platform</a>
+            <a href="about.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">About</a>
             <a href="blog.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Blog</a>
 
             <button id="theme-toggle"
@@ -151,270 +166,294 @@
                 <span id="theme-icon">🌙</span>
             </button>
             <a href="contact.html"
-                class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-black transition-all">Contact
-                Us</a>
+                class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-black transition-all">Contact Us</a>
         </div>
-        <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-900 dark:text-white focus:outline-none">
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-900 dark:text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[100] bg-brand-lightBg dark:bg-brand-navy hidden flex-col transition-all duration-300">
+        <div class="flex justify-between items-center p-8 border-b border-brand-cyan border-opacity-20">
+            <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 dark:invert transition-all">
+            <button id="mobile-menu-close" class="p-2 text-gray-900 dark:text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center flex-1 gap-6 text-xl md:text-2xl font-bold uppercase tracking-widest text-gray-900 dark:text-brand-sepia p-8 text-center overflow-y-auto">
+            <a href="index.html" class="hover:text-brand-cyan transition-colors mobile-link">Commander Qluu</a>
+            <a href="technology.html" class="hover:text-brand-cyan transition-colors mobile-link">Technology</a>
+            <a href="government.html" class="hover:text-brand-cyan transition-colors mobile-link text-brand-cyan">Government</a>
+            <a href="autonomy.html" class="hover:text-brand-cyan transition-colors mobile-link">Autonomy Platform</a>
+            <a href="about.html" class="hover:text-brand-cyan transition-colors mobile-link">About</a>
+            <a href="blog.html" class="hover:text-brand-cyan transition-colors mobile-link">Blog</a>
+            
+            <button id="mobile-menu-theme-toggle" class="p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-3xl mt-4">
+                <span id="mobile-theme-icon">🌙</span>
+            </button>
+            <a href="contact.html"
+                class="w-full max-w-sm py-4 bg-brand-cyan text-white dark:text-black rounded-lg text-center mt-4 mobile-link">Contact Us</a>
+        </div>
+    </div>
 
     <div class="relative z-10 pointer-events-none">
 
         <!-- Hero Section -->
         <section class="min-h-screen flex items-center justify-center px-8 pt-20">
-            <div class="max-w-7xl pointer-events-auto relative">
+            <div class="max-w-7xl pointer-events-auto relative text-center">
                 <div class="absolute -inset-4 bg-brand-blue rounded-full opacity-10 blur-3xl w-full h-full"></div>
                 <h1
-                    class="text-7xl md:text-9xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
                     Government &<br><span class="text-brand-cyan">Defense Solutions</span></h1>
                 <p
-                    class="text-xl md:text-3xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    Drone threats are evolving faster than procurement cycles can respond. QLUUos delivers autonomous,
-                    self-improving counter-UAS defense that deploys in days and gets smarter with every engagement. A
-                    fraction of legacy system costs.</p>
+                    class="text-xl md:text-3xl leading-relaxed max-w-4xl mx-auto opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
+                    Contract-ready. Independently verified. Designed for the warfighter.
+                </p>
                 <div class="mt-10 opacity-0 transform translate-y-8 gs-btn">
                     <button onclick="window.location.href='contact.html'"
-                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
-                        Request a Brief</button>
+                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
+                        Request Technical Evaluation</button>
                 </div>
             </div>
         </section>
 
         <!-- Quote 1 -->
-        <div class="h-96 flex items-center justify-center px-8">
+        <div class="h-64 flex items-center justify-center px-8">
             <p
                 class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
-                "The threat landscape changes weekly. Your defense should too."</p>
+                "Tested against the hardest targets. Built for the most demanding environments."</p>
         </div>
 
-        <!-- Section 1: Intelligence-Driven Defense -->
-        <section class="min-h-screen flex items-center justify-center px-8">
-            <div class="max-w-7xl pointer-events-auto">
+        <!-- Section 1: Verified Performance -->
+        <section class="min-h-screen flex items-center justify-center px-8 py-20">
+            <div class="max-w-7xl pointer-events-auto w-full">
                 <h2
-                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
-                    Intelligence-Driven<br><span class="text-brand-cyan">Defense</span></h2>
-                <p
-                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    QLUUos doesn't wait to be attacked. The system continuously ingests real-time intelligence from 20+
-                    OSINT sources, grounding the Commander QLUU World Model in the actual geopolitical environment. From
-                    border security to force protection to critical asset defense, QLUUos adapts to the mission, not
-                    the other way around.
-                </p>
-
-                <ul
-                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 space-y-4 opacity-0 transform translate-y-8 font-medium">
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>20+ OSINT Integrations:</strong> Autonomously monitors Telegram, Twitter, dark web
-                            forums, and regional news to map emerging drone technologies and tactics.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Threat Signature Updating:</strong> Daily, over-the-air updates ensure your
-                            defense systems are looking for the exact waveforms and flight profiles adversaries are
-                            testing today.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Adaptive Posturing:</strong> Automatically adjusts sensor sensitivity and drone
-                            patrol routes based on the current local threat condition derived from world model
-                            intelligence.</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Quote 2 -->
-        <div class="h-96 flex items-center justify-center px-8">
-            <p
-                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
-                "Software that deploys in days. Legacy systems take months. That gap is where threats live."</p>
-        </div>
-
-        <!-- Section 2: Measured Outcomes -->
-        <section class="min-h-screen flex items-center justify-center px-8">
-            <div class="max-w-7xl pointer-events-auto">
-                <h2
-                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
-                    Measured<br><span class="text-brand-cyan">Outcomes</span></h2>
+                    class="text-5xl md:text-7xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Verified<br><span class="text-brand-cyan">Performance</span></h2>
                 <p
                     class="text-xl md:text-2xl leading-relaxed max-w-4xl mb-12 opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    These are not projections. These are measured outcomes from our operational simulation environment.
+                    Every result tested on held-out data the models never saw.
                 </p>
 
                 <!-- Metrics Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 opacity-0 transform translate-y-8 gs-btn">
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">92%</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Intercept
-                            Success</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-0 transform translate-y-8 gs-btn">
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Thermal Detection</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">88.5%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">accuracy on real-world infrared datasets</p>
                     </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">1.2s</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Detection
-                            to Track</p>
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Acoustic Detection</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">99.7%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">accuracy on multi-class audio data</p>
                     </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">320ms</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Decision
-                            Latency</p>
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Infrared Detection</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">84.99%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">accuracy on operational IR benchmarks</p>
                     </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">5m</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Terminal
-                            Precision</p>
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Intent Classification</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">90.5%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">accuracy on holdout evaluation</p>
                     </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">87%</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Track
-                            Confidence</p>
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Trajectory Prediction</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">+96.5%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">advantage over physics baselines across 11 domains</p>
                     </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">L4</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">Autonomy
-                            Level</p>
-                    </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">99.7%</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">System
-                            Uptime</p>
-                    </div>
-                    <div class="metric-card text-center">
-                        <p class="text-4xl md:text-5xl font-bold text-brand-cyan">&lt;200ms</p>
-                        <p class="text-sm uppercase tracking-widest mt-2 text-gray-800 dark:text-brand-sepia">API P95
-                            Latency</p>
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Simulation Interop</h3>
+                        <p class="text-4xl font-bold text-brand-cyan mb-3">100%</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-brand-sepia opacity-80">(73/73) against DoD-standard simulation environments</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quote 3 -->
-        <div class="h-96 flex items-center justify-center px-8">
-            <p
-                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
-                "Software-first. Hardware-agnostic. Predictive, not reactive."</p>
-        </div>
-
-        <!-- Section 3: Built to Your Spec -->
-        <section class="min-h-screen flex items-center justify-center px-8">
-            <div class="max-w-7xl pointer-events-auto">
+        <!-- Section 2: Contract Information -->
+        <section class="min-h-screen flex items-center justify-center px-8 py-20 bg-brand-cyan bg-opacity-5 dark:bg-opacity-10">
+            <div class="max-w-7xl pointer-events-auto w-full">
                 <h2
-                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
-                    Built to<br><span class="text-brand-cyan">Your Spec</span></h2>
-                <p
-                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    When the mission demands purpose-built hardware, QLUU designs and manufactures bespoke autonomous
-                    platforms: UAVs, UGVs, and USVs. Integrated CFD simulation, 3D-printed prototyping, and
-                    secure stateside manufacturing. From concept to deployed interceptor in weeks.</p>
-
-                <ul
-                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 mb-10 space-y-4 opacity-0 transform translate-y-8 font-medium max-w-4xl">
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Rapid Prototyping:</strong> Utilizing in-house 3D printing and CFD simulations, we
-                            iterate on aerodynamic and hydrodynamic platforms at unprecedented speeds.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Multi-Domain Capable:</strong> Custom delivery systems built for your exact
-                            mission environment, whether it's defending airspace, patrolling perimeters, or securing
-                            waterways.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Stateside Manufacturing:</strong> Complete control over the supply chain and
-                            assembly process ensures operational security from conceptualization to deployment.</span>
-                    </li>
-                </ul>
-                <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
-                    <button onclick="window.location.href='drones.html'"
-                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
-                        View the Fleet</button>
-                    <button onclick="window.location.href='contact.html'"
-                        class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
-                        Contact Us</button>
+                    class="text-5xl md:text-7xl font-bold leading-tight mb-12 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow text-center">
+                    Contract<br><span class="text-brand-cyan">Information</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 transform translate-y-8 mx-auto max-w-5xl">
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">CAGE Code</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-white">1AFE0</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">UEI</p>
+                            <p class="text-2xl font-bold text-gray-900 dark:text-white">CJG6C3JMM433</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Registry</p>
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">SAM.gov Registered</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Compliance</p>
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">NDAA Section 889</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Security</p>
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">CMMC Level 1</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-brand-navy p-6 rounded-lg shadow-sm border border-brand-cyan border-opacity-20">
+                        <div class="text-brand-cyan text-3xl font-bold">///</div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Alumni</p>
+                            <p class="text-lg font-bold text-gray-900 dark:text-white leading-tight">Techstars Allied Defense</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Software-First Advantage -->
-        <section class="min-h-screen flex items-center justify-center px-8">
+        <!-- Section 3: Why Government Customers Choose QLUU -->
+        <section class="min-h-screen flex items-center justify-center px-8 py-20">
             <div class="max-w-7xl pointer-events-auto">
                 <h2
-                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
-                    Software-First.<br><span class="text-brand-cyan">Hardware-Agnostic.</span></h2>
-                <p
-                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    QLUUos runs on any modern drone fleet. No proprietary hardware lock-in. No multi-million dollar
-                    installation costs. Compatible with MAVLink, PX4, and ArduPilot. Deploy on what you already own, or
-                    let us build something purpose-made. Either way, the intelligence layer is the same.</p>
-
-                <ul
-                    class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia mt-8 space-y-4 opacity-0 transform translate-y-8 font-medium max-w-4xl">
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Universal Protocol Support:</strong> Native integration with MAVLink, PX4, and
-                            ArduPilot ecosystems, allowing QLUUos to communicate over existing encrypted
-                            datalinks.</span>
+                    class="text-5xl md:text-7xl font-bold leading-tight mb-12 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
+                    Why Government Customers<br><span class="text-brand-cyan">Choose QLUU</span></h2>
+                
+                <ul class="text-lg md:text-xl text-gray-800 dark:text-brand-sepia space-y-8 opacity-0 transform translate-y-8 font-medium max-w-4xl">
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-cyan bg-opacity-20 p-2 rounded">
+                            <svg class="w-6 h-6 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <div>
+                            <strong class="text-xl text-gray-900 dark:text-white block mb-1">Sovereign AI</strong>
+                            <span class="opacity-90">No third-party model dependencies, no cloud APIs. Your data never leaves your infrastructure.</span>
+                        </div>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Zero Hardware Lock-in:</strong> Decoupling software from hardware means you can
-                            source interceptors or sensors from multiple vendors without breaking the intelligence
-                            layer.</span>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-cyan bg-opacity-20 p-2 rounded">
+                            <svg class="w-6 h-6 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div>
+                            <strong class="text-xl text-gray-900 dark:text-white block mb-1">Edge-native</strong>
+                            <span class="opacity-90">Runs directly on tactical hardware. Full air-gapped operation for disconnected, degraded, intermittent, or limited (DDIL) environments.</span>
+                        </div>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-cyan font-bold mt-1">///</span>
-                        <span><strong>Retrofit Capable:</strong> Turn "dumb" legacy security assets and commercial
-                            off-the-shelf drones into an autonomous swarm by installing the QLUUos brain.</span>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-cyan bg-opacity-20 p-2 rounded">
+                            <svg class="w-6 h-6 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        </div>
+                        <div>
+                            <strong class="text-xl text-gray-900 dark:text-white block mb-1">Independently Verified</strong>
+                            <span class="opacity-90">Every result tested on held-out data the models never saw during training. Uncompromising evaluation standards.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-cyan bg-opacity-20 p-2 rounded">
+                            <svg class="w-6 h-6 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <strong class="text-xl text-gray-900 dark:text-white block mb-1">Combat-informed</strong>
+                            <span class="opacity-90">Led by Green Beret Lt. Colonel with DIU experience, ensuring our solutions solve real operational problems.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-cyan bg-opacity-20 p-2 rounded">
+                            <svg class="w-6 h-6 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                        </div>
+                        <div>
+                            <strong class="text-xl text-gray-900 dark:text-white block mb-1">Interoperable</strong>
+                            <span class="opacity-90">100% pass rate against DoD-standard simulation environments. Plays seamlessly with existing command and control networks.</span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </section>
 
-        <!-- Quote 4 -->
-        <div class="h-96 flex items-center justify-center px-8">
-            <p
-                class="text-2xl md:text-4xl text-center max-w-5xl opacity-0 transform translate-y-8 text-brand-blue italic font-medium">
-                "Know your vulnerabilities before your adversaries do."</p>
-        </div>
+        <!-- Section 4: The Team (Government-focused) -->
+        <section class="min-h-screen flex items-center justify-center px-8 py-20">
+            <div class="max-w-7xl pointer-events-auto text-center w-full">
+                <div class="opacity-0 transform translate-y-12 mb-12">
+                    <h2 class="text-5xl md:text-7xl font-bold leading-tight text-gray-900 dark:text-white tracking-tight text-glow">
+                        Defense<br><span class="text-brand-cyan">Leadership</span>
+                    </h2>
+                </div>
+                
+                <div class="max-w-4xl mx-auto bg-white dark:bg-brand-navy p-10 rounded-xl shadow-lg border border-brand-cyan border-opacity-20 opacity-0 transform translate-y-8">
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">James Gavrilis</h3>
+                    <p class="text-brand-cyan font-semibold uppercase tracking-widest mb-8">Head of Defense Strategy</p>
+                    
+                    <p class="text-xl md:text-2xl italic text-gray-700 dark:text-brand-sepia mb-8 font-medium">
+                        "James bridges commercial AI technology into DoD acquisition. He translates QLUU's AI stack into language that program offices and combatant commands speak."
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <span>Green Beret</span>
+                        <span class="w-1 h-1 rounded-full bg-brand-cyan hidden sm:block"></span>
+                        <span>Lt. Colonel (Ret.)</span>
+                        <span class="w-1 h-1 rounded-full bg-brand-cyan hidden sm:block"></span>
+                        <span>DIU Alum</span>
+                    </div>
+                </div>
 
-        <!-- Section 5: Intelligence as a Service -->
-        <section class="min-h-screen flex items-center justify-center px-8">
-            <div class="max-w-7xl pointer-events-auto">
-                <h2
-                    class="text-6xl md:text-8xl font-bold leading-tight mb-8 opacity-0 transform translate-y-12 text-gray-900 dark:text-white tracking-tight text-glow">
-                    Intelligence<br><span class="text-brand-cyan">as a Service</span></h2>
-                <p
-                    class="text-xl md:text-2xl leading-relaxed max-w-4xl opacity-0 transform translate-y-8 text-brand-navy dark:text-brand-sepia font-medium">
-                    Not every mission requires a full platform deployment. QLUU offers Intelligence as a Service for
-                    government and defense organizations: we deploy QLUUos against your installation, base, or area of
-                    responsibility and deliver comprehensive threat assessments. Airspace vulnerability analysis. Threat
-                    vector mapping. Sensor gap identification. Prioritized hardening recommendations. Strategic and
-                    operational reports generated by the same AI that runs live intercept operations, delivered on your
-                    timeline and at your classification level. As an extension of these services via a contract bump or
-                    subscription, we provide Data and Physical Architecture Transition Services to integrate any legacy
-                    analog infrastructure into a continuously digitally monitorable metric.</p>
-                <div class="mt-10 opacity-0 transform translate-y-8 gs-btn flex gap-4">
+                <div class="mt-16 opacity-0 transform translate-y-8 gs-btn flex flex-col sm:flex-row justify-center gap-4">
                     <button onclick="window.location.href='contact.html'"
-                        class="pointer-events-auto bg-brand-cyan text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
-                        Request a Threat Assessment</button>
-                    <button onclick="window.location.href='os.html'"
-                        class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-black transition-all rounded">
-                        Explore QLUUos</button>
+                        class="pointer-events-auto bg-brand-cyan text-white dark:text-black px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-navy hover:text-brand-cyan transition-all rounded shadow-[0_0_20px_rgba(192, 58, 46,0.4)]">
+                        Request Technical Evaluation</button>
+                    <button onclick="window.location.href='#'"
+                        class="pointer-events-auto border border-brand-cyan text-brand-cyan px-8 py-4 font-bold tracking-widest uppercase hover:bg-brand-cyan hover:text-white dark:hover:text-black transition-all rounded">
+                        Download Capability Brief</button>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer
-            class="py-12 border-t border-brand-blue border-opacity-20 text-center relative z-20 pointer-events-auto bg-gray-100 dark:bg-brand-navy bg-opacity-80 dark:bg-opacity-80 transition-colors">
-            <img src="./assets/logo_wht.png" alt="QLUU" class="h-6 mx-auto mb-6 dark:invert">
-            <p class="opacity-80 text-[10px] md:text-sm tracking-tighter md:tracking-widest whitespace-nowrap md:whitespace-normal font-medium text-gray-900 dark:text-white">&copy; 2026 QLUU Lab, Inc. California, USA. All rights reserved.</p>
+        <footer class="pt-12 pb-6 border-t border-brand-blue border-opacity-20 relative z-20 pointer-events-auto bg-gray-100 dark:bg-brand-navy bg-opacity-90 dark:bg-opacity-90 transition-colors">
+            
+            <div class="max-w-7xl mx-auto px-8 mb-12">
+                <div class="footer-badge-bar text-gray-800 dark:text-brand-sepia">
+                    <span class="footer-badge">NVIDIA Inception</span>
+                    <span class="footer-badge">Microsoft for Startups</span>
+                    <span class="footer-badge">Google for Startups</span>
+                    <span class="footer-badge">MAK Technologies</span>
+                    <span class="footer-badge">Techstars Allied Defense</span>
+                    <span class="footer-badge">Terminal Autonomy USA</span>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <img src="./assets/logo_wht.png" alt="QLUU" class="h-6 dark:invert">
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400 border-l border-gray-400 pl-4">
+                        &copy; 2026 QLUU Lab, Inc. | Los Angeles, CA
+                    </p>
+                </div>
+                
+                <div class="flex gap-6 text-sm font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+                    <a href="privacy.html" class="hover:text-brand-cyan transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-brand-cyan transition-colors">Terms</a>
+                    <a href="contact.html" class="hover:text-brand-cyan transition-colors">Contact</a>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -430,26 +469,28 @@
         // Theme management
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
-        let isDarkMode = localStorage.getItem('theme') === 'dark';
+        let isDarkMode = localStorage.getItem('theme') !== 'light';
 
         function applyTheme(dark) {
             if (dark) {
                 document.documentElement.classList.add('dark');
-                themeIcon.textContent = '☀️';
+                if (themeIcon) themeIcon.textContent = '☀️';
             } else {
                 document.documentElement.classList.remove('dark');
-                themeIcon.textContent = '🌙';
+                if (themeIcon) themeIcon.textContent = '🌙';
             }
         }
 
         applyTheme(isDarkMode);
 
-        themeToggle.addEventListener('click', () => {
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            applyTheme(isDarkMode);
-            window.dispatchEvent(new Event('themeChanged'));
-        });
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !isDarkMode;
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+                window.dispatchEvent(new Event('themeChanged'));
+            });
+        }
 
         // Scene setup
         const scene = new THREE.Scene();
@@ -508,7 +549,6 @@
             droneMat1.blending = blendMode; droneMat1.color.setHex(modelColor); droneMat1.needsUpdate = true;
             ugvMat.map = isDarkMode ? ugvTexDark : ugvTexLight;
             ugvMat.blending = blendMode; ugvMat.color.setHex(modelColor); ugvMat.needsUpdate = true;
-            // Update cloned dimmed materials from Layer 3
             dimmedMaterials.forEach(dm => { dm.blending = blendMode; dm.color.setHex(modelColor); dm.map = dm._base.map; dm.needsUpdate = true; });
         });
 
@@ -612,34 +652,7 @@
             }
         });
     </script>
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu"
-        class="fixed inset-0 z-[100] bg-brand-lightBg dark:bg-brand-navy hidden flex-col transition-all duration-300">
-        <div class="flex justify-between items-center p-8 border-b border-brand-cyan border-opacity-20">
-            <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 dark:invert transition-all">
-            <button id="mobile-menu-close" class="p-2 text-gray-900 dark:text-white">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                    </path>
-                </svg>
-            </button>
-        </div>
-        <div
-            class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-bold uppercase tracking-widest text-gray-900 dark:text-brand-sepia p-8 text-center">
-            <a href="index.html" class="hover:text-brand-cyan transition-colors mobile-link">Critical Infra</a>
-            <a href="os.html" class="hover:text-brand-cyan transition-colors mobile-link">Operating System</a>
-            <a href="government.html" class="hover:text-brand-cyan transition-colors mobile-link">Government
-                Solutions</a>
-            <a href="drones.html" class="hover:text-brand-cyan transition-colors mobile-link">Drone Fleet</a>
-            <a href="blog.html" class="hover:text-brand-cyan transition-colors mobile-link">Blog</a>
-            <button id="mobile-menu-theme-toggle" class="p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-3xl">
-                <span id="mobile-theme-icon">🌙</span>
-            </button>
-            <a href="contact.html"
-                class="w-full py-4 bg-brand-cyan text-white dark:text-black rounded-lg text-center mt-4">Contact Us</a>
-        </div>
-    </div>
-
+    
     <!-- Mobile Menu JS -->
     <script>
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -690,6 +703,4 @@
         }
     </script>
 </body>
-
-
 </html>
