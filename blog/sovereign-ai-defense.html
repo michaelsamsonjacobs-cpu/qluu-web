@@ -118,9 +118,10 @@
             </div>
 
             <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand-cyan hover:prose-a:text-brand-blue opacity-0">
-                <p>We were running a live demo for a group of DoW stakeholders when the screen froze. Not a crash, just a spinner. Three seconds. Five seconds. Ten.</p>
-<p>The AI had gone dark. Not because of a bug. Because the building's guest WiFi had dropped, and one of our early prototype models was calling a cloud API for inference. No internet, no AI. In a demo room with coffee and whiteboards, this was embarrassing. In a contested environment with GPS jamming and communications degradation, it would be lethal.</p>
-<p>That was the last time we called an external API for anything mission-critical. We rebuilt every model to run on-device. Edge-native. Zero cloud dependency. No API calls. No internet required.</p>
+                <p>In Ukraine, Starlink outages left entire drone units blind for hours. In the Red Sea, Houthi forces jammed GPS and communications links across a 200-mile corridor. In the Pacific, military planners war-game scenarios where undersea cables are severed and satellite constellations are degraded on day one.</p>
+<p>The pattern is clear: in every modern conflict, communications infrastructure is the first thing to go. And any AI system that depends on a cloud connection dies with it.</p>
+<p>That makes edge sovereignty the single most critical component of any defense autonomy stack today. Not the model architecture. Not the sensor suite. The ability to keep thinking when the network goes dark.</p>
+<p>We built QLUU around that constraint from the beginning. Every model runs on-device. Edge-native. Zero cloud dependency. No API calls. No internet required.</p>
 <p>It wasn't just a technical decision. It became the design constraint that shaped everything we build.</p>
 <h2 class="text-2xl font-bold mt-8 mb-4">What "sovereign" actually means</h2>
 <p>Most companies that say "edge AI" mean they run inference locally but train in the cloud using someone else's foundation model. Their model weights belong to Meta, or OpenAI, or Anthropic. They've fine-tuned someone else's brain. If that company changes their licensing, their terms of service, or their priorities, your defense system is at risk.</p>
