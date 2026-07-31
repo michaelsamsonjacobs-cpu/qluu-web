@@ -350,8 +350,6 @@
                     <span class="hidden md:inline text-brand-cyan opacity-30">•</span>
                     <span class="hover:text-gray-900 dark:hover:text-white transition-colors">Microsoft for Startups</span>
                     <span class="hidden md:inline text-brand-cyan opacity-30">•</span>
-                    <span class="hover:text-gray-900 dark:hover:text-white transition-colors">Edge-Native AI</span>
-                    <span class="hidden md:inline text-brand-cyan opacity-30">•</span>
                     <span class="hover:text-gray-900 dark:hover:text-white transition-colors">MAK Technologies</span>
                     <span class="hidden md:inline text-brand-cyan opacity-30">•</span>
                     <span class="hover:text-gray-900 dark:hover:text-white transition-colors">Techstars</span>
@@ -432,51 +430,116 @@
             });
         }
 
-        // Scene setup
+        // === DRONE SWARM BACKGROUND ===
+        const canvas = document.getElementById('canvas');
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(isDarkMode ? 0x030914 : 0xe3ddd3, isDarkMode ? 0.015 : 0.005);
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true, antialias: true, powerPreference: "high-performance" });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+        camera.position.z = 60;
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(isDarkMode ? 0x030914 : 0xe3ddd3, 1);
-        camera.position.z = 20;
 
-        const parallaxGroups = [new THREE.Group(), new THREE.Group(), new THREE.Group()];
-        parallaxGroups.forEach(group => scene.add(group));
+        const COUNT = 70;
+        const GROUPS = 3;
+        const SPEEDS = [35, 20, 10];
+        const groups = [];
 
-        const textureLoader = new THREE.TextureLoader();
-        const cb = '';
-        const ugvTexDark = textureLoader.load('./assets/ugv_3d.png' + cb);
-        const droneTexDark = textureLoader.load('./assets/drone_1.png' + cb);
-        const ugvTexLight = textureLoader.load('./assets/ugv_3d_exact_alpha.png' + cb);
-        const droneTexLight = textureLoader.load('./assets/drone_1_exact_alpha.png' + cb);
+        const ptColor = isDarkMode ? 0x22d3ee : 0x1e2a4a;
 
-        const droneMat1 = new THREE.MeshBasicMaterial({
-            map: isDarkMode ? droneTexDark : droneTexLight,
-            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
-            blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
-            depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628
+        for (let g = 0; g < GROUPS; g++) {
+            const n = Math.floor(COUNT / GROUPS);
+            const positions = new Float32Array(n * 3);
+            const vel = [];
+            for (let i = 0; i < n; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 90;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 40 - g * 15;
+                vel.push(new THREE.Vector3((Math.random() - 0.5) * 0.08, (Math.random() - 0.5) * 0.08, (Math.random() - 0.5) * 0.04));
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const mat = new THREE.PointsMaterial({ color: ptColor, size: 3.5, transparent: true, opacity: 0.3, sizeAttenuation: true });
+            const pts = new THREE.Points(geo, mat);
+
+            const lineGeo = new THREE.BufferGeometry();
+            lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n * n * 6), 3));
+            const lineMat = new THREE.LineBasicMaterial({ color: ptColor, transparent: true, opacity: 0.1 });
+            const lines = new THREE.LineSegments(lineGeo, lineMat);
+
+            const container = new THREE.Group();
+            container.add(pts, lines);
+            scene.add(container);
+            groups.push({ container, geo, mat, lineGeo, lineMat, vel, n, positions, speed: SPEEDS[g] });
+        }
+
+        const mouse = new THREE.Vector2(-999, -999);
+        const mouseWorld = new THREE.Vector3();
+        addEventListener('mousemove', e => {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         });
-        const ugvMat = new THREE.MeshBasicMaterial({
-            map: isDarkMode ? ugvTexDark : ugvTexLight,
-            transparent: true, opacity: 0.68, side: THREE.DoubleSide,
-            blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
-            depthWrite: false, color: isDarkMode ? 0x1e3a8a : 0x0a1628
-        });
 
-        const materials = [droneMat1, ugvMat];
-        const dimmedMaterials = [];
-        const shapes = [];
+        let scrollProgress = 0;
+        ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: true, onUpdate: (self) => { scrollProgress = self.progress; } });
+
+        const tmp = new THREE.Vector3(), sep = new THREE.Vector3(), ali = new THREE.Vector3(), coh = new THREE.Vector3();
+
+        function flock(gr) {
+            const p = gr.positions, v = gr.vel, n = gr.n;
+            for (let i = 0; i < n; i++) {
+                sep.set(0, 0, 0); ali.set(0, 0, 0); coh.set(0, 0, 0);
+                let cnt = 0;
+                const ix = p[i * 3], iy = p[i * 3 + 1], iz = p[i * 3 + 2];
+                for (let j = 0; j < n; j++) {
+                    if (i === j) continue;
+                    const dx = ix - p[j * 3], dy = iy - p[j * 3 + 1], dz = iz - p[j * 3 + 2];
+                    const d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    if (d < 12 && d > 0) {
+                        if (d < 5) sep.add(tmp.set(dx, dy, dz).divideScalar(d * d));
+                        ali.add(v[j]);
+                        coh.add(tmp.set(p[j * 3], p[j * 3 + 1], p[j * 3 + 2]));
+                        cnt++;
+                    }
+                }
+                if (cnt) {
+                    ali.divideScalar(cnt); coh.divideScalar(cnt);
+                    coh.sub(tmp.set(ix, iy, iz));
+                    v[i].addScaledVector(sep, 0.001);
+                    v[i].addScaledVector(ali, 0.0005);
+                    v[i].addScaledVector(coh, 0.0003);
+                }
+                // Mouse repulsion
+                const dxm = ix - mouseWorld.x, dym = iy - mouseWorld.y;
+                const dm = Math.sqrt(dxm * dxm + dym * dym);
+                if (dm < 8 && dm > 0.01) v[i].addScaledVector(tmp.set(dxm, dym, 0).divideScalar(dm), 0.01 * (1 - dm / 8));
+
+                if (v[i].length() > 0.18) v[i].setLength(0.18);
+                p[i * 3] += v[i].x; p[i * 3 + 1] += v[i].y; p[i * 3 + 2] += v[i].z;
+                if (Math.abs(p[i * 3]) > 55) v[i].x *= -1;
+                if (Math.abs(p[i * 3 + 1]) > 38) v[i].y *= -1;
+                if (Math.abs(p[i * 3 + 2] + 20) > 40) v[i].z *= -1;
+            }
+            gr.geo.attributes.position.needsUpdate = true;
+        }
+
+        function connect(gr) {
+            const p = gr.positions, n = gr.n, arr = gr.lineGeo.attributes.position.array;
+            let k = 0;
+            for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+                const dx = p[i * 3] - p[j * 3], dy = p[i * 3 + 1] - p[j * 3 + 1], dz = p[i * 3 + 2] - p[j * 3 + 2];
+                if (dx * dx + dy * dy + dz * dz < 36) {
+                    arr[k++] = p[i * 3]; arr[k++] = p[i * 3 + 1]; arr[k++] = p[i * 3 + 2];
+                    arr[k++] = p[j * 3]; arr[k++] = p[j * 3 + 1]; arr[k++] = p[j * 3 + 2];
+                }
+            }
+            gr.lineGeo.setDrawRange(0, k / 3);
+            gr.lineGeo.attributes.position.needsUpdate = true;
+        }
 
         window.addEventListener('themeChanged', () => {
             const targetColor = isDarkMode ? 0x030914 : 0xe3ddd3;
-            const modelColor = isDarkMode ? 0x1e3a8a : 0x0a1628;
-            const blendMode = isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending;
-            const targetColorHex = new THREE.Color(targetColor);
-            
-            gsap.to(scene.fog.color, { r: targetColorHex.r, g: targetColorHex.g, b: targetColorHex.b, duration: 1.0 });
-            gsap.to(scene.fog, { density: isDarkMode ? 0.015 : 0.005, duration: 1.0 });
+            const droneColor = isDarkMode ? 0x22d3ee : 0x1e2a4a;
             
             const colorObj = new THREE.Color(renderer.getClearColor(new THREE.Color()));
             gsap.to(colorObj, {
@@ -484,62 +547,11 @@
                 duration: 1.0, onUpdate: () => renderer.setClearColor(colorObj, 1)
             });
 
-            droneMat1.map = isDarkMode ? droneTexDark : droneTexLight;
-            droneMat1.blending = blendMode;
-            droneMat1.color.setHex(modelColor);
-            droneMat1.needsUpdate = true;
-
-            ugvMat.map = isDarkMode ? ugvTexDark : ugvTexLight;
-            ugvMat.blending = blendMode;
-            ugvMat.color.setHex(modelColor);
-            ugvMat.needsUpdate = true;
-
-            dimmedMaterials.forEach(dm => {
-                dm.blending = blendMode; dm.color.setHex(modelColor); dm.map = dm._base.map; dm.needsUpdate = true;
+            groups.forEach(g => {
+                g.mat.color.setHex(droneColor);
+                g.lineMat.color.setHex(droneColor);
             });
         });
-
-        // Layer 1
-        for (let i = 0; i < 10; i++) {
-            const material = materials[Math.floor(Math.random() * materials.length)];
-            const size = Math.random() * 2.5 + 1.5;
-            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), material);
-            const baseRotZ = (Math.random() - 0.5) * 0.8;
-            shape.position.set((Math.random() - 0.5) * 60, (Math.random() - 0.5) * 45, Math.random() * 10 + 8);
-            shape.rotation.set(0, 0, baseRotZ);
-            parallaxGroups[0].add(shape);
-            shapes.push({ mesh: shape, layer: 0, speed: Math.random() * 0.6 + 0.9, rotationSpeed: (Math.random() - 0.5) * 0.05, isDrone: true, baseRotationZ: baseRotZ });
-        }
-
-        // Layer 2
-        for (let i = 0; i < 16; i++) {
-            const material = materials[Math.floor(Math.random() * materials.length)];
-            const size = Math.random() * 3.5 + 2.0;
-            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), material);
-            const baseRotZ = (Math.random() - 0.5) * 0.8;
-            shape.position.set((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 55, Math.random() * 15 - 5);
-            shape.rotation.set(0, 0, baseRotZ);
-            parallaxGroups[1].add(shape);
-            shapes.push({ mesh: shape, layer: 1, speed: Math.random() * 0.4 + 0.5, rotationSpeed: (Math.random() - 0.5) * 0.03, isDrone: true, baseRotationZ: baseRotZ });
-        }
-
-        // Layer 3
-        for (let i = 0; i < 23; i++) {
-            const material = materials[Math.floor(Math.random() * materials.length)];
-            const size = Math.random() * 4.5 + 2.5;
-            const dimmedMat = material.clone();
-            dimmedMat.opacity = 0.24; dimmedMat._base = material; dimmedMaterials.push(dimmedMat);
-            const shape = new THREE.Mesh(new THREE.PlaneGeometry(size, size), dimmedMat);
-            const baseRotZ = (Math.random() - 0.5) * 0.8;
-            shape.position.set((Math.random() - 0.5) * 110, (Math.random() - 0.5) * 80, Math.random() * 20 - 30);
-            shape.rotation.set(0, 0, baseRotZ);
-            parallaxGroups[2].add(shape);
-            shapes.push({ mesh: shape, layer: 2, speed: Math.random() * 0.25 + 0.15, rotationSpeed: (Math.random() - 0.5) * 0.02, isDrone: true, baseRotationZ: baseRotZ });
-        }
-
-        let scrollY = 0, mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-        document.addEventListener('mousemove', (e) => { targetX = (e.clientX / window.innerWidth) * 2 - 1; targetY = -(e.clientY / window.innerHeight) * 2 + 1; });
-        ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: true, onUpdate: (self) => { scrollY = self.progress; } });
 
         const sections = document.querySelectorAll("section");
         sections.forEach((section) => {
@@ -559,24 +571,16 @@
             ScrollTrigger.create({ trigger: quote, start: "top 80%", onEnter: () => gsap.to(quote, { opacity: 1, y: 0, duration: 1.3, ease: "power2.out" }), onLeaveBack: () => gsap.to(quote, { opacity: 0, y: 32, duration: 0.6 }) });
         });
 
-        const clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
-            const time = clock.getElapsedTime();
-            mouseX += (targetX - mouseX) * 0.05; mouseY += (targetY - mouseY) * 0.05;
-            parallaxGroups[0].position.y = scrollY * 35; parallaxGroups[1].position.y = scrollY * 20; parallaxGroups[2].position.y = scrollY * 10;
-            parallaxGroups[0].rotation.x = mouseY * 0.15; parallaxGroups[0].rotation.y = mouseX * 0.15;
-            parallaxGroups[1].rotation.x = mouseY * 0.08; parallaxGroups[1].rotation.y = mouseX * 0.08;
-            parallaxGroups[2].rotation.x = mouseY * 0.04; parallaxGroups[2].rotation.y = mouseX * 0.04;
-            
-            shapes.forEach((shapeData) => {
-                const { mesh, speed, rotationSpeed } = shapeData;
-                mesh.rotation.z = Math.sin(time * 1.5) * rotationSpeed * 2.5 + shapeData.baseRotationZ;
-                mesh.rotation.y = Math.cos(time * 1.3) * rotationSpeed * 5;
-                mesh.rotation.x = Math.sin(time * 1.4) * rotationSpeed * 5;
-                mesh.position.y += Math.sin(time * speed * 2 + mesh.position.x) * 0.02;
-                if (mesh.position.y - parallaxGroups[shapeData.layer].position.y < -50) mesh.position.y += 100;
-                else if (mesh.position.y - parallaxGroups[shapeData.layer].position.y > 50) mesh.position.y -= 100;
+            // Unproject mouse to world space
+            const dir = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(camera).sub(camera.position).normalize();
+            const t = -camera.position.z / dir.z;
+            mouseWorld.copy(camera.position).addScaledVector(dir, t);
+
+            groups.forEach(g => {
+                flock(g); connect(g);
+                g.container.position.y = scrollProgress * g.speed;
             });
             renderer.render(scene, camera);
         }
