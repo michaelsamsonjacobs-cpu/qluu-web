@@ -146,7 +146,7 @@
             <a href="autonomy.html" class="hover:text-black dark:hover:text-white transition-colors">Autonomy Platform</a>
             <a href="about.html" class="hover:text-black dark:hover:text-white transition-colors text-brand-cyan">About</a>
             <a href="blog.html" class="hover:text-black dark:hover:text-white transition-colors">Blog</a>
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
+            <button id="theme-toggle" class="hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
                 <span id="theme-icon">🌙</span>
             </button>
             <a href="contact.html" class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-white dark:hover:text-black transition-all">Request Briefing</a>
@@ -337,7 +337,7 @@
         gsap.registerPlugin(ScrollTrigger);
 
         // Theme management
-        let isDarkMode = localStorage.getItem('theme') === 'dark';
+        let isDarkMode = false; localStorage.setItem("theme", "light");
         if (localStorage.getItem('theme') === null) {
             isDarkMode = true; // Default to dark mode
             localStorage.setItem('theme', 'dark');

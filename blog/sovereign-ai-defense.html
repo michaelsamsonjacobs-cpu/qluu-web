@@ -88,7 +88,7 @@
             <a href="../about.html" class="hover:text-gray-900 dark:text-white transition-colors">About</a>
             <a href="../blog.html" class="hover:text-gray-900 dark:text-white transition-colors text-brand-cyan">Blog</a>
 
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
+            <button id="theme-toggle" class="hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-xl">
                 <span id="theme-icon">🌙</span>
             </button>
             <a href="../contact.html" class="px-5 py-2 border border-brand-cyan text-brand-cyan rounded hover:bg-brand-cyan hover:text-black transition-all">Contact Us</a>
@@ -178,7 +178,7 @@
             <a href="../autonomy.html" class="hover:text-brand-cyan transition-colors mobile-link">Autonomy Platform</a>
             <a href="../about.html" class="hover:text-brand-cyan transition-colors mobile-link">About</a>
             <a href="../blog.html" class="hover:text-brand-cyan transition-colors mobile-link">Blog</a>
-            <button id="mobile-menu-theme-toggle" class="p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-3xl mt-4">
+            <button id="mobile-menu-theme-toggle" class="hidden p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-3xl mt-4">
                 <span id="mobile-theme-icon">🌙</span>
             </button>
             <a href="../contact.html" class="w-full py-4 bg-brand-cyan text-white dark:text-black rounded-lg text-center mt-4">Contact Us</a>
@@ -190,7 +190,7 @@
         gsap.registerPlugin(ScrollTrigger);
 
         // Theme management
-        let isDarkMode = localStorage.getItem('theme') === 'dark';
+        let isDarkMode = false; localStorage.setItem("theme", "light");
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const mobileThemeToggle = document.getElementById('mobile-menu-theme-toggle');
