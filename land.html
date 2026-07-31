@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUU | Land Domain — Ground Force & Perimeter Defense</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/favicon_q.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#030914',
+                            cyan: '#c03a2e', /* Note: brand-cyan maps to the red brand color as per instructions */
+                            sepia: '#F7F1D5',
+                            lightBg: '#e3ddd3',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(3, 9, 20, 0.4);
+        }
+        
+        html.dark {
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(3, 9, 20, 0.6);
+        }
+
+        html:not(.dark) {
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(227, 221, 211, 0.4);
+        }
+
+        .glass-nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(192, 58, 46, 0.3);
+        }
+
+        /* Blueprint Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(192, 58, 46, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(192, 58, 46, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+        
+        html:not(.dark) .bg-grid {
+            background-image: 
+                linear-gradient(to right, rgba(3, 9, 20, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(3, 9, 20, 0.05) 1px, transparent 1px);
+        }
+
+        /* WebGL Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
+
+    <!-- Theme Initialization -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="bg-brand-lightBg text-gray-900 transition-colors duration-300 dark:bg-brand-navy dark:text-white min-h-screen relative overflow-x-hidden">
+
+    <!-- Backgrounds -->
+    <div id="canvas-container"></div>
+    <div class="fixed inset-0 bg-grid pointer-events-none z-[-1]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <img src="./assets/logo_wht.png" alt="QLUU Logo" class="h-8 w-auto dark:invert-0 invert transition-transform group-hover:scale-105">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="commander.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">Commander Qluu</a>
+                    <a href="technology.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">Technology</a>
+                    <a href="government.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">Government</a>
+                    <a href="autonomy.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">Autonomy Platform</a>
+                    <a href="about.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">About</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-brand-cyan transition-colors">Blog</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle Theme">
+                        <!-- Sun Icon (shows in dark mode) -->
+                        <svg class="w-5 h-5 hidden dark:block text-brand-sepia" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <!-- Moon Icon (shows in light mode) -->
+                        <svg class="w-5 h-5 block dark:hidden text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+
+                    <a href="contact.html" class="px-6 py-2 border border-brand-cyan text-brand-cyan hover:bg-brand-cyan hover:text-white transition-all duration-300 font-medium tracking-wide">
+                        Request Briefing
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5 hidden dark:block text-brand-sepia" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button id="mobile-menu-button" class="text-gray-900 dark:text-white focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-brand-lightBg/95 dark:bg-brand-navy/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden pt-24">
+        <div class="flex flex-col items-center space-y-6 p-8">
+            <a href="commander.html" class="text-2xl font-medium">Commander Qluu</a>
+            <a href="technology.html" class="text-2xl font-medium">Technology</a>
+            <a href="government.html" class="text-2xl font-medium">Government</a>
+            <a href="autonomy.html" class="text-2xl font-medium">Autonomy Platform</a>
+            <a href="about.html" class="text-2xl font-medium">About</a>
+            <a href="blog.html" class="text-2xl font-medium">Blog</a>
+            <a href="contact.html" class="mt-8 px-8 py-3 border border-brand-cyan text-brand-cyan w-full text-center text-xl font-medium">Request Briefing</a>
+        </div>
+        <button id="close-mobile-menu" class="absolute top-6 right-6 p-2 text-gray-900 dark:text-white">
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-20">
+        
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex items-center relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="max-w-4xl gs-reveal">
+                <div class="inline-block mb-4 px-3 py-1 border border-brand-cyan/50 text-brand-cyan text-sm font-mono uppercase tracking-widest bg-brand-cyan/10">
+                    Land Domain
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+                    Defend Every <span class="text-brand-cyan text-glow">Perimeter</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed mb-10">
+                    From forward operating bases to critical infrastructure, Commander Qluu delivers autonomous ground-level drone defense that never sleeps.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="contact.html?subject=Land%20Domain" class="px-8 py-4 bg-brand-cyan text-white font-medium hover:bg-brand-cyan/80 transition-all duration-300">
+                        Request Land Domain Briefing
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: The Problem -->
+        <section class="py-24 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="gs-reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">The Ground Truth</h2>
+                    <div class="h-1 w-20 bg-brand-cyan mb-8"></div>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                        Perimeter defense relies on humans watching screens. Drone incursions at ground level evade radar. Border threats evolve faster than static defenses can adapt.
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Legacy systems generate alert fatigue, while manual interdiction leaves gaps in security. A modern perimeter requires persistent, autonomous intelligence.
+                    </p>
+                </div>
+                <div class="gs-reveal glass-card p-10 border-l-4 border-l-brand-cyan">
+                    <div class="text-4xl font-light text-brand-cyan mb-4">"Static defense is a vulnerability in the age of dynamic drone threats."</div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-6">Threat Assessment</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Solution -->
+        <section class="py-24 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 gs-reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Intelligent Perimeter Defense</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">
+                    Multi-sensor fusion at the tactical edge. Predicts ground-level drone trajectories. Coordinates autonomous intercept without cloud dependency.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 gs-reveal hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-brand-cyan/20 rounded flex items-center justify-center mb-6 text-brand-cyan border border-brand-cyan/30">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Edge Deployment</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Runs on tactical hardware. No cloud required. Zero latency processing for immediate threat response when milliseconds matter.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 gs-reveal hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-brand-cyan/20 rounded flex items-center justify-center mb-6 text-brand-cyan border border-brand-cyan/30">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Multi-Sensor Fusion</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Integrates radar, EO/IR, RF, and acoustic sensors into a single common operating picture, eliminating blind spots.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 gs-reveal hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-brand-cyan/20 rounded flex items-center justify-center mb-6 text-brand-cyan border border-brand-cyan/30">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Adaptive Defense</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Learns attacker patterns and evolves countermeasures continuously, ensuring defense remains effective against novel threats.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Use Cases -->
+        <section class="py-24 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-200 dark:border-gray-800">
+            <div class="mb-16 gs-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Deployed Across</h2>
+                <div class="h-1 w-16 bg-brand-cyan"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Use Case 1 -->
+                <div class="glass-card p-6 border-t-2 border-t-brand-cyan gs-reveal">
+                    <h3 class="text-lg font-bold mb-2">Military Installations & FOBs</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Protecting bases and temporary encampments from low-altitude ISR and kinetic drone threats with 360-degree autonomous oversight.
+                    </p>
+                </div>
+
+                <!-- Use Case 2 -->
+                <div class="glass-card p-6 border-t-2 border-t-brand-cyan gs-reveal" style="transition-delay: 100ms;">
+                    <h3 class="text-lg font-bold mb-2">Border Security & Sovereignty</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Monitoring vast perimeters to detect, track, and classify unauthorized incursions that exploit terrain to avoid traditional sensors.
+                    </p>
+                </div>
+
+                <!-- Use Case 3 -->
+                <div class="glass-card p-6 border-t-2 border-t-brand-cyan gs-reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-lg font-bold mb-2">Energy & Industrial Infrastructure</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Securing critical infrastructure against targeted harassment and sabotage with automated alerting and non-kinetic interdiction protocols.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 relative z-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center gs-reveal">
+            <div class="glass-card p-12 relative overflow-hidden">
+                <div class="absolute inset-0 bg-brand-cyan/5"></div>
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to Secure Your Perimeter?</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-10">
+                        Deploy Commander Qluu to establish an unbreachable autonomous defense perimeter.
+                    </p>
+                    <a href="contact.html?subject=Land%20Domain" class="inline-block px-10 py-4 bg-brand-cyan text-white font-medium hover:bg-brand-cyan/80 transition-all duration-300 shadow-[0_0_20px_rgba(192,58,46,0.4)]">
+                        Request Land Domain Briefing
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-brand-lightBg dark:bg-brand-navy relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <!-- Partners (Mockup) -->
+            <div class="border-b border-gray-200 dark:border-gray-800 pb-12 mb-12">
+                <p class="text-sm text-center text-gray-500 uppercase tracking-widest mb-8">Trusted By</p>
+                <div class="flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Partner logos placeholders -->
+                    <div class="h-8 w-24 bg-gray-400 dark:bg-gray-600 mask-logo"></div>
+                    <div class="h-8 w-24 bg-gray-400 dark:bg-gray-600 mask-logo"></div>
+                    <div class="h-8 w-24 bg-gray-400 dark:bg-gray-600 mask-logo"></div>
+                    <div class="h-8 w-24 bg-gray-400 dark:bg-gray-600 mask-logo"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <img src="./assets/logo_wht.png" alt="QLUU" class="h-6 w-auto dark:invert-0 invert opacity-50">
+                    <span class="text-gray-500 text-sm">© 2026 QLUU Inc. All rights reserved.</span>
+                </div>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-brand-cyan transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-brand-cyan transition-colors">Terms</a>
+                    <a href="contact.html" class="hover:text-brand-cyan transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Three.js for background -->
+    <script type="module">
+        import * as THREE from 'https://esm.sh/three@0.160.0';
+
+        // Initialize Three.js scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        const container = document.getElementById('canvas-container');
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Create drone swarm (particles)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 700;
+        
+        const posArray = new Float32Array(particlesCount * 3);
+        const colorsArray = new Float32Array(particlesCount * 3);
+        
+        // Brand color #c03a2e
+        const color = new THREE.Color('#c03a2e');
+
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // Spread particles over a wide area
+            posArray[i] = (Math.random() - 0.5) * 15;     // x
+            posArray[i+1] = (Math.random() - 0.5) * 15;   // y
+            posArray[i+2] = (Math.random() - 0.5) * 10;   // z
+
+            colorsArray[i] = color.r;
+            colorsArray[i+1] = color.g;
+            colorsArray[i+2] = color.b;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+        // Create a custom material that looks a bit like drone lights
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.04,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 3;
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX) * 0.001;
+            mouseY = (event.clientY - windowHalfY) * 0.001;
+        });
+
+        // Handle Theme Changes for Three.js
+        function updateParticleColors() {
+            const isDark = document.documentElement.classList.contains('dark');
+            particlesMaterial.opacity = isDark ? 0.6 : 0.3;
+        }
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            targetX = mouseX * 0.5;
+            targetY = mouseY * 0.5;
+
+            // Smooth mouse follow
+            particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+            particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+
+            // Subtle continuous rotation
+            particlesMesh.rotation.y += 0.001;
+            
+            // Subtle wave motion
+            particlesMesh.position.y = Math.sin(elapsedTime * 0.5) * 0.1;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Expose color update to global scope for theme toggle
+        window.updateThreeJsTheme = updateParticleColors;
+        updateParticleColors();
+    </script>
+
+    <!-- Main Logic -->
+    <script>
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        const revealElements = document.querySelectorAll(".gs-reveal");
+        revealElements.forEach((elem) => {
+            gsap.fromTo(elem, 
+                { autoAlpha: 0, y: 50 }, 
+                {
+                    duration: 1, 
+                    autoAlpha: 1, 
+                    y: 0, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%", 
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // Theme Toggle Logic
+        const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('mobile-theme-toggle')];
+        
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+            if (window.updateThreeJsTheme) window.updateThreeJsTheme();
+        }
+
+        themeToggles.forEach(toggle => {
+            if(toggle) {
+                toggle.addEventListener('click', toggleTheme);
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        });
+    </script>
+</body>
+</html>
