@@ -114,24 +114,24 @@
                     <span class="text-sm text-gray-800 dark:text-brand-sepia dark:opacity-90 font-medium tracking-widest uppercase">July 30, 2026 &bull; Mike Jacobs, Co-Founder & CTO</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white">Sovereign AI for Defense: Why We Don't Call APIs</h1>
+                <img src="../assets/blog_hero_sovereign.png" alt="Commander Qluu Fleet Operations" class="w-full rounded-xl mb-8 shadow-lg">
             </div>
 
             <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand-cyan hover:prose-a:text-brand-blue opacity-0">
-                <p>We were running a live demo for a group of DoD stakeholders when the screen froze. Not a crash — just a spinner. Three seconds. Five seconds. Ten.</p>
+                <p>We were running a live demo for a group of DoD stakeholders when the screen froze. Not a crash, just a spinner. Three seconds. Five seconds. Ten.</p>
 <p>The AI had gone dark. Not because of a bug. Because the building's guest WiFi had dropped, and one of our early prototype models was calling a cloud API for inference. No internet, no AI. In a demo room with coffee and whiteboards, this was embarrassing. In a contested environment with GPS jamming and communications degradation, it would be lethal.</p>
 <p>That was the last time we called an external API for anything mission-critical. We rebuilt every model to run on-device. Edge-native. Zero cloud dependency. No API calls. No internet required.</p>
 <p>It wasn't just a technical decision. It became the design constraint that shaped everything we build.</p>
 <h2 class="text-2xl font-bold mt-8 mb-4">What "sovereign" actually means</h2>
-<p>Most companies that say "edge AI" mean they run inference locally but train in the cloud using someone else's foundation model. Their model weights belong to Meta, or OpenAI, or Anthropic. They've fine-tuned someone else's brain. If that company changes their licensing, their terms of service, or their politics — your defense system is at risk.</p>
+<p>Most companies that say "edge AI" mean they run inference locally but train in the cloud using someone else's foundation model. Their model weights belong to Meta, or OpenAI, or Anthropic. They've fine-tuned someone else's brain. If that company changes their licensing, their terms of service, or their priorities, your defense system is at risk.</p>
 <p>Our models are trained from scratch on our own simulation data. We own the weights. We own the training pipeline. We own the evaluation framework. We own the data. There is no third-party dependency chain between our AI and the mission.</p>
 <h2 class="text-2xl font-bold mt-8 mb-4">Why this matters for ITAR and classified environments</h2>
-<p>In classified environments, no data can leave the network boundary. Period. A system that calls any external API — even a "private" cloud endpoint — requires accreditation paperwork that can take 12-18 months and often fails. A system that runs entirely on local hardware with no network requirement? That's a different conversation entirely.</p>
-<p>Our system deploys as firmware on tactical edge hardware. One device, one model, no outbound connections. The accreditation path is dramatically simpler because there's nothing to accredit — no data flows to audit, no API endpoints to monitor, no cloud provider to vet.</p>
+<p>In classified environments, no data can leave the network boundary. Period. A system that calls any external API, even a "private" cloud endpoint, requires accreditation paperwork that can take over a year and often fails. A system that runs entirely on local hardware with no network requirement? That's a different conversation entirely.</p>
+<p>Our system deploys as firmware on tactical edge hardware. One device, one model, no outbound connections. The accreditation path is dramatically simpler because there's nothing to accredit. No data flows to audit, no API endpoints to monitor, no cloud provider to vet.</p>
 <h2 class="text-2xl font-bold mt-8 mb-4">The sovereignty flywheel</h2>
 <p>Here's what most people miss: sovereignty isn't just about security. It's about speed.</p>
-<p>When you own your entire stack — training data, model architecture, evaluation framework, deployment pipeline — you can iterate in hours instead of months. You don't wait for your cloud provider to support a new feature. You don't submit tickets to get access to fine-tuning APIs. You don't negotiate data processing agreements.</p>
-<p>We run our entire AI development cycle on our own infrastructure. We generate simulation data, train models, evaluate them against held-out scenarios, and deploy to edge hardware — all internally, all without touching an external API.</p>
-<p>The result: we've shipped 30+ production models while most defense AI companies are still negotiating their cloud contracts.</p>
+<p>When you own your entire stack, from training data to model architecture to deployment pipeline, you can iterate in hours instead of months. You don't wait for your cloud provider to support a new feature. You don't submit tickets to get access to fine-tuning APIs. You don't negotiate data processing agreements.</p>
+<p>We run our entire AI development cycle on our own infrastructure. We generate simulation data, train models, evaluate them against held-out scenarios, and deploy to edge hardware. All internally, all without touching an external API.</p>
 <p>Sovereign AI isn't a limitation. It's a competitive advantage. The companies that own their stack move faster, deploy cleaner, and don't wake up one morning to find out their AI provider just changed the pricing or the politics.</p>
                 
                 <div class="mt-12 text-center">

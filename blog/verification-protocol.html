@@ -114,29 +114,29 @@
                     <span class="text-sm text-gray-800 dark:text-brand-sepia dark:opacity-90 font-medium tracking-widest uppercase">July 30, 2026 &bull; Mike Jacobs, Co-Founder & CTO</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white">The Verification Protocol: How We Know Our AI Actually Works</h1>
+                <img src="../assets/blog_hero_verification.png" alt="Commander Qluu Operations Dashboard" class="w-full rounded-xl mb-8 shadow-lg">
             </div>
 
             <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand-cyan hover:prose-a:text-brand-blue opacity-0">
-                <p>On June 25, 2026, we discovered that 9 out of 10 of our trajectory prediction models were catastrophically worse than a simple physics baseline. Some by six orders of magnitude.</p>
-<p>Our internal documents said they were at 95%+ accuracy. Our evaluation pipeline said they were passing. Our model registry listed them as "verified."</p>
-<p>They were all wrong. The test that proved it took 4 seconds to run.</p>
+                <p>Earlier this year, we discovered that the majority of our trajectory prediction models were catastrophically worse than a simple physics baseline. Some by orders of magnitude.</p>
+<p>Our internal documents said they were at high accuracy. Our evaluation pipeline said they were passing. Our model registry listed them as "verified."</p>
+<p>They were all wrong. The test that proved it took four seconds to run.</p>
 <p>What happened?</p>
-<p>Our evaluation pipeline had a subtle bug: it shared data preprocessing code with the training pipeline. Which meant the eval was reproducing the same errors that training was making — and calling them correct. The models weren't learning physics. They were memorizing noise. And our eval was confirming the memorization as accuracy.</p>
+<p>Our evaluation pipeline had a subtle bug: it shared data preprocessing code with the training pipeline. The eval was reproducing the same errors that training was making, and calling them correct. The models weren't learning physics. They were memorizing noise. And our eval was confirming the memorization as accuracy.</p>
 <p>This is the hardest problem in AI for defense. Not building the model. Not getting the loss to go down. Knowing whether it actually works.</p>
 <p>We responded by building what we call Rule Zero: Nothing exists until independently verified.</p>
 <p>Rule Zero has five checkpoints:</p>
 <ol class="list-decimal pl-6 space-y-2 my-4">
-    <li>The artifact exists — a trained checkpoint, not just architecture code</li>
-    <li>An independent verification exists — an eval script that shares zero code with training</li>
-    <li>The verification passes on held-out data — data the model has never seen</li>
-    <li>The result beats the appropriate baseline — not "loss went down," but better than the naive physics alternative</li>
-    <li>A human has reviewed it — looked at actual predictions and confirmed they make physical sense</li>
+    <li>The artifact exists. A trained checkpoint, not just architecture code.</li>
+    <li>An independent verification exists. An eval script that shares zero code with training.</li>
+    <li>The verification passes on held-out data. Data the model has never seen.</li>
+    <li>The result beats the appropriate baseline. Not "loss went down," but better than the naive physics alternative.</li>
+    <li>A human has reviewed it. Looked at actual predictions and confirmed they make physical sense.</li>
 </ol>
-<p>If any checkpoint fails, the model is listed as "IN DEVELOPMENT" or "UNVERIFIED" — no matter how good the training metrics look. We don't round up. We don't hedge. We write the truth.</p>
-<p>After rebuilding our evaluation pipeline from scratch — zero shared code, strict holdout splits, fresh data — we retrained every model. Today, our trajectory prediction family passes all five checkpoints across every domain. A human reviewed 55 random holdout predictions and confirmed all of them were physically plausible.</p>
+<p>If any checkpoint fails, the model is listed as "IN DEVELOPMENT" or "UNVERIFIED," no matter how good the training metrics look. We don't round up. We don't hedge. We write the truth.</p>
+<p>After rebuilding our evaluation pipeline from scratch with zero shared code and strict holdout splits, we retrained every model. Today, our trajectory prediction family passes all five checkpoints across every domain.</p>
 <p>But here's the part that matters: we publish our methodology, not just our results. When a government customer asks "how do you know this works?", we don't hand them a slide deck with cherry-picked numbers. We hand them the verification protocol and invite them to run it themselves.</p>
-<p>Most defense AI companies tell you their accuracy numbers. We tell you how we know they're real — including the time they weren't.</p>
-<p>The test that catches everything should be mandatory from day one. We learned that the hard way. Now it is.</p>
+<p>Most defense AI companies tell you their accuracy numbers. We tell you how we know they're real, including the time they weren't.</p>
                 
                 <div class="mt-12 text-center">
                     <a href="../contact.html" class="inline-block px-8 py-4 bg-brand-cyan text-white dark:text-black font-bold rounded hover:bg-brand-blue transition-colors">Request our verification methodology</a>
